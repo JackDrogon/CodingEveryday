@@ -1,5 +1,7 @@
 ## TODO
 1. Add todo in every day folder
+2. Add Makefile or Rakefile
+3. Add test
 
 
 
@@ -10,3 +12,4 @@
 4. -[] printf usage
 5. -[] scanf usage
 6. -[] 自己实现printf && scanf
+7. -[] Link List 二维指针
