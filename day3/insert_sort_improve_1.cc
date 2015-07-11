@@ -30,12 +30,8 @@ void insert_sort(int arr[], const size_t n)
 {
 	if (n <= 1) return;
 	for (size_t i = 1; i < n; ++i) {
-		for (size_t j = i; j > 0; --j) {
-			if (arr[j] < arr[j-1]) {
-				swap(arr[j], arr[j-1]);
-			} else {
-				break;
-			}
+		for (size_t j = i; j > 0 && arr[j] < arr[j-1]; --j) {
+			swap(arr[j], arr[j-1]);
 		}
 	}
 }
