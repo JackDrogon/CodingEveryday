@@ -1,0 +1,2 @@
+1. elixir observer的注册函数可以包含参数
+2. elixir observer分两个部分，一个接收register和notify， 另一个运行，当时间来临了之后，就去通知之前的去notify
