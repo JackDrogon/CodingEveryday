@@ -5,18 +5,18 @@ defmodule Observer do
   end
 
   def start() do
-    Process.register(spawn(fn -> accept([]) end), :observer)
+    Process.register(spawn(&(accept/0)), :observer)
   end
 
   def run() do
     send(:observer, :run)
   end
 
-  def process(list) do
+  defp process(list) do
     process(0, list)
   end
 
-  def process(num, list) do
+  defp process(num, list) do
     if rem(num, 5) == 1 do
       notify_observers(list)
     end
@@ -26,6 +26,11 @@ defmodule Observer do
   defp notify_observers(list) do
     list
       |> Enum.map(fn {_sender, fun} -> fun.() end)
+  end
+
+  defp accept() do
+    Process.flag(:trap_exit, true)
+    accept([])
   end
 
   defp accept(list) do
