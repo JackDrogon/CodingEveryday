@@ -17,13 +17,16 @@ defmodule Observer do
   end
 
   def process(num, list) do
+    IO.puts num
     if rem(num, 5) == 1 do
       notify_observers(list)
     end
+    # IO.puts num
     process(num+1, list)
   end
 
   defp notify_observers(list) do
+    #IO.puts list
     list
       |> Enum.map(fn {_sender, fun} -> fun.() end)
   end
@@ -42,10 +45,13 @@ defmodule Observer do
 
 end
 
-fun = fn(name) ->
+f = fn name ->
         fn ->
           IO.puts "#{name}"
+        end
+    end
 
 Observer.start
-Observer.add_observer(self, fun("hello"))
-Observer.add_observer(self, fun("world"))
+Observer.add_observer(self, f.("hello"))
+Observer.add_observer(self, f.("world"))
+Observer.run
