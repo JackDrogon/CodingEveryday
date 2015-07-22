@@ -29,8 +29,20 @@ class TinyVM
         @regs[params[0]] = params[1]
       when /add/i
         @regs[params[2]] = @regs[params[0]] + @regs[params[1]] 
+      when /and/i
+        @regs[params[2]] = @regs[params[0]] && @regs[params[1]] 
+      when /decr/i
+        @regs[params[0]] -= 1
+      when /div/i
+        @regs[params[2]] = @regs[params[0]] / @regs[params[1]] 
+      when /equal/i
+        @regs[params[2]] = @regs[params[0]] == @regs[params[1]] 
       when /puti/i
         puts @regs[params[0]]
+      when /goto/i
+        @ip = params[0]
+      when /gotor/i
+        @ip = @regs[params[0]]
       when /gotol/i
         @ip = params[0]
         next
