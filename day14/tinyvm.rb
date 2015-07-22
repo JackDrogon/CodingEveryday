@@ -7,7 +7,7 @@ class CLI
 
   def initialize()
     if ARGV[0]
-      @opcodes = File.readlines(ARGV[0]).map {|line| line.split}
+      @opcodes = File.readlines(ARGV[0]).map { |line| line.strip.split(%r{[,\s]+}) }
     else
       while line = gets
         opcode = line.split
