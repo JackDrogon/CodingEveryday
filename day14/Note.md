@@ -7,3 +7,9 @@
 7. 考虑如何设计并发模型。
 8. Redis和MC一样每个obj都有refcount，用来后台线程做清理和rehash的时候防止被直接删除，这是最简单的GC。
 9. VM实现GC。
+10. VM添加并发结构。添加各种模型。参考Lua，IO。
+11. VM考虑FFI，和使用ruby现有的库。如何结合。参考Clojure, JVM。如何调用操作系统API。
+12. 考虑使用JimWimrich的Regex库，来像写那样Yacc，Lex，Lemon一样来写词法解析。此处自己写，然后解析yac
+... 参考Antlr。
+13. 设计VM的AST。
+14. 使用计算的本质的里面的模型，考虑使用规约和类。比如let -> class Let...
