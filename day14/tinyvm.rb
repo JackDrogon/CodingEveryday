@@ -4,9 +4,25 @@
 require 'pp'
 
 class CLI
+
   def initialize()
-    
+    if ARGV[0]
+      @opcodes = File.readlines(ARGV[0]).map {|line| line.split}
+    else
+      while line = gets
+        opcode = line.split
+        @opcodes << opcode
+      end
+    end
+    @opcodes.insert(0, nil)
+    # pp @opcodes
   end
+
+  def run()
+    tiny_vm = TinyVM.new
+    tiny_vm.process @opcodes
+  end
+
 end
 
 class TinyVM
@@ -15,14 +31,16 @@ class TinyVM
 
   def initialize()
     @regs = Array.new(6)
-    @ip = 0
+    @ip = 1
   end
 
   def process(opcodes)
     while @ip < opcodes.size
       opcode = opcodes[@ip]
-      # pp opcode
       params = opcode[1..-1].map {|i| i.to_i}
+
+      # pp opcode
+      # pp regs
 
       case opcode[0]
       when  /let/i
@@ -46,25 +64,17 @@ class TinyVM
       when /gotol/i
         @ip = params[0]
         next
-      when /xx/i
-        r = opcode[1].to_i + opcode[2].to_i
+      when /nil/i
       end
 
       @ip += 1
-      # pp regs
     end
   end
 
 end
 
-tiny_vm = TinyVM.new
-opcodes = []
-while line = gets
-  opcode = line.split
-  opcodes << opcode
-end
-
-tiny_vm.process opcodes
+cli = CLI.new
+cli.run
 
 # puts "---------- After Run ----------"
 # pp tiny_vm.regs
