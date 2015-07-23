@@ -1,0 +1,3 @@
+task :default do
+  ruby "list_lexer.rb '[a,b]'"
+end
