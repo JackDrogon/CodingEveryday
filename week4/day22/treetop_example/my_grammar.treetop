@@ -1,0 +1,11 @@
+# my_grammar.treetop
+# You can use a .tt extension instead if you wish
+grammar MyGrammar
+  rule hello
+    'hello ' 
+  end
+
+  rule linguist
+    'chomsky' / 'lambek' / 'jacobsen' / 'frege'
+  end
+end
