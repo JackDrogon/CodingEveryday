@@ -1,0 +1,9 @@
+grammar List
+  rule list do
+    '[' name ']'
+  end
+
+  rule name do
+    [a-zA-Z]+
+  end
+end
