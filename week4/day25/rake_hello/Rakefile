@@ -1,0 +1,17 @@
+#task :default => [:hello]
+task default: [:hello]
+
+desc 'Run hello.rb'
+task :hello => :prepare do
+	ruby "hello.rb"
+end
+
+desc 'Hello Prepare'
+task :prepare do
+	puts "Prepare End"
+end
+
+desc 'Gcc Version'
+task :gcc do
+	`gcc --version`
+end
