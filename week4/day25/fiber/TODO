@@ -1,0 +1,5 @@
+# Add Fiber for priority queue
+每个fiber可以是指自己的有限级别，这样能够保证自己能够被执行(级别+加上已经执行的)
+	全局统一的id，每次id+1
+ruby 优先队列？？？
+如何使用Fiber.transfer来控制fiber队列，根据要知道现有的名字才能，此处可以使用一个控制函数来获取 
