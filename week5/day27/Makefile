@@ -1,3 +1,8 @@
 CXX := g++
 
-all: stat mmap
+OBJCTS = stat mmap
+
+all: $(OBJCTS)
+
+clean:
+	-$(RM) $(OBJCTS)
