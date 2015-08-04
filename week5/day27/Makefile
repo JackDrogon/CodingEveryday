@@ -1,3 +1,3 @@
 CXX := g++
 
-all: stat
+all: stat mmap
