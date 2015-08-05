@@ -62,3 +62,21 @@ If you want to resize the virtual disk, you should use
 ```
 VBoxManage modifyhd --resize <megabytes> /path/to/vdisk.vmdk.
 ```
+
+### ssh反向链接，解决内外网问题
+
+#### 1. 在被控端运行
+```
+ssh -f -N -R 10000:localhost:22 username@主控端ip
+
+#这里的10000和22是端口号，也就是说，在主控端10000端口和被控端的22端口上建立了一个通道。如果主控端的ssh端口號不是默認的還要加 –p port參數
+
+```
+
+#### 2. 在主控端运行
+
+```
+ssh username@localhost -p 10000
+
+#username是你被控端的username，10000就是刚才的那个端口号。 
+```
