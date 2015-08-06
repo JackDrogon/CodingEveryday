@@ -9,6 +9,7 @@ birthday(#person{age=Age} = P) ->
 	P#person{age=Age+1}.
 
 main(_) ->
+	io:format("~p~n", [#person{}]),
 	Person = #person{name="Joe", age=21, phone="999-999"},
 	io:format("~p~n", [Person]),
 	io:format("~p~n", [#person{name="Jack"}]),
