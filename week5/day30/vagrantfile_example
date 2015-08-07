@@ -1,0 +1,16 @@
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.VM.box = "hashicorp/precise64"
+
+  config.VM.define :rgw do |rgw|
+    rgw.VM.network :private_network, ip: "192.168.42.2"
+    rgw.VM.host_name = "ceph-rgw"
+    rgw.VM.provider :virtualbox do |vb|
+      vb.customize ["modifyVM", :id, "--memory", "192"]
+    end
+    rgw.VM.provider :VMware_fusion do |v|
+      v.VMx['memsize'] = '192'
+    end
+  end
+end
