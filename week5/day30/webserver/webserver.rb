@@ -120,6 +120,7 @@ CANNOT_EXECUTE
       rescue Exception => e
         puts e.message
         puts e.backtrace.inspect
+        NOT_FOUND
       end
     else
       NOT_FOUND
