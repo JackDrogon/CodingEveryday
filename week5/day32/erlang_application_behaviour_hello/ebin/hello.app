@@ -1,0 +1,7 @@
+{application,hello,
+             [{description,"Hello Erlang OTP Project"},
+              {vsn,"0.1.0"},
+              {modules,[hello_app,hello_sup]},
+              {registered,[hello_sup]},
+              {applications,[kernel,stdlib]},
+              {mod,{hello_app,[]}}]}.
