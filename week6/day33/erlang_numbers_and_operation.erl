@@ -53,6 +53,8 @@ list_operation() ->
     print_line([1,2,1] -- [2,1]).
 
 comparison_operation() ->
+    %% < =< = >= == =:= /= =/=
+    %% number < atom < reference < fun < port < pid < tuple < list < bit string
     ok.
 
 bignumber() ->
