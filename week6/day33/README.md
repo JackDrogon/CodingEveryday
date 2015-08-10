@@ -3,3 +3,6 @@
 
 
 #### My Code
+1. Ruby: logger, monitor
+2. Erlang: erlang numbers and opertaion
+3. C: logger
