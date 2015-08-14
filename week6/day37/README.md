@@ -1,5 +1,5 @@
 ## Day One
-### Today is 2015-08-13, Thu.
+### Today is 2015-08-14, Fri.
 
 
 #### My Code
