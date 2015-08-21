@@ -19,4 +19,5 @@ func main() {
 	fmt.Println("Hello, World!")
 	fmt.Println("My favourite number is", rand.Intn(10))
 	fmt.Println(add(42, 43))
+	add(10, 20)
 }
