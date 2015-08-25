@@ -15,8 +15,11 @@ func split(sum int) (x, y int) {
 	return
 }
 
-func main() {
+func hello() {
 	fmt.Println("Hello, World!")
+}
+
+func main() {
 	fmt.Println("My favourite number is", rand.Intn(10))
 	fmt.Println(add(42, 43))
 	add(10, 20)
