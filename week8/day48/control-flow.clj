@@ -1,4 +1,4 @@
-(ns expression)
+(ns control-flow)
 
 ; Flow Control
 ; if, cond, for, loop
@@ -9,6 +9,17 @@
 
 (println (abs 10))
 (println (abs -10))
+
+
+(defn haha [x]
+  (if (< x 0)
+    (- x)
+    (do
+      (println "Haha")
+     x)))
+(println (haha 10))
+(println (haha -10))
+
 
 
 ; cond expression
