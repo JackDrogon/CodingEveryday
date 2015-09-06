@@ -1,0 +1,8 @@
+Best approach is
+
+     0) ask an expert
+     1) read the man pages for the module, in question
+     2) experiment with the functions in the man pages in the shell
+     3) ask/tell this list if the manual pages are ambiguous or
+incomprehensible
+     4) search Google/stackoverflow
