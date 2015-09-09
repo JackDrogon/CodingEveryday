@@ -1,0 +1,15 @@
+Vagrant 配置多个端口转发
+
+guest 是虚拟机的端口号 host 是母机的端口号
+
+Vagrant.configure("2") do |config|
+  config.vm.network "forwarded_port", guest: 80, host: 8080
+end
+
+默认的是这样，比如要再增加一个端口转发
+
+Vagrant.configure("2") do |config|
+  config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 81, host: 8081
+end
+
