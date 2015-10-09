@@ -1,0 +1,28 @@
+This package was debianized by Carlos Z.F. Liu <carlosliu@users.sourceforge.net> on
+Sat,  2 Apr 2005 16:31:27 +1200.
+
+Copyright:
+ Copyright 2008 LI Daobing <lidaobing@gmail.com>
+ Copyright 2008 Ji ZhengYu <zhengyuji@gmail.com>
+ Copyright 2000-2004 CMPP Project
+
+The manual pages were written and translated by many different people
+and improved by probably even more.  Listing all authors and
+modificators for each page is not possible, but most of them are listed
+in /usr/share/doc/manpages-zh/THANKS.gz.
+
+These manual pages were put together by Chinese Man Pages Project (CMPP)
+<http://cmpp.linuxforum.net>.
+
+License:
+
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.2
+    or any later version published by the Free Software Foundation;
+    with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+    A copy of the license is included in the section entitled "GNU
+    Free Documentation License".
+
+The complete text of the GNU Free Documentation License can be found in
+`/usr/share/common-licenses/GFDL'.
+
