@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+# TODO: Parallel... ThreadPool
+
+SourceDir = "#{ENV['HOME']}/Source"
+GithubSourceDir = "#{ENV['HOME']}/Source"
+Level = 6
+src = ARGV[0]
+
+def is_git_(dir)
+  Dir.exist? "#{dir}/.git"
+end
+
+def cd_source_(dir, src, level)
+  dirs = Dir["#{dir}/*"]
+
+  return if ! dirs
+
+  dirs.each { |d|
+    break if ! Dir["#{d}/*"]
+
+    if is_git_(d)
+      if d.split("/").last == src
+        puts d
+        exit 0 # 为什么这里用return不行啊, 了解 这里这是返回了上层的cd_source_,还会继续执行接下来的d
+      end
+    else
+      cd_source_(d, src, level+1) if Dir.exist?(d) && level < Level
+    end
+  }
+end
+
+cd_source_ GithubSourceDir, src, 0
+cd_source_ SourceDir, src, 0
