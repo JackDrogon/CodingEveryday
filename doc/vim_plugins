@@ -5,138 +5,81 @@ plugin:
 
     编程相关:
         公共:
-            taglist
-
-            相信无人不知其大名，用来提供单个源代码文件的函数列表之类的功能。最近在使用一个针对面向对象语言的类似插件-tagbar.vim，也很不错。
-            NERD_commenter
-
-            提供快速注释/反注释代码块的功能
-            DoxygenToolkit.vim
-
-            添加doxygen注释
-            UltiSnips
-
-            提供超强的快速生成代码段的功能(超越snipmate)
-            mark.vim
-
-            给不同的单词高亮，表明不同的变量时很有用。（特别说明一下，vim.org上有两个Mark.vim，请使用链接中指向的那个，另外一个是有bug的）
-            authorinfo
-
-            自动生成/更新文件的作者信息(本博编写)
-            checksyntax
-
-            一个通用的语法检查插件，支持c,js,等等
-            Indent Guides
-
-            用来帮助缩进对齐的插件，需要的时候会很好用 
+            taglist 相信无人不知其大名，用来提供单个源代码文件的函数列表之类的功能。最近在使用一个针对面向对象语言的类似插件-tagbar.vim，也很不错。
+            NERD_commenter 提供快速注释/反注释代码块的功能
+            DoxygenToolkit.vim 添加doxygen注释
+            UltiSnips 提供超强的快速生成代码段的功能(超越snipmate)
+            mark.vim 给不同的单词高亮，表明不同的变量时很有用。（特别说明一下，vim.org上有两个Mark.vim，请使用链接中指向的那个，另外一个是有bug的）
+            authorinfo 自动生成/更新文件的作者信息(本博编写)
+            checksyntax 一个通用的语法检查插件，支持c,js,等等
+            Indent Guides 用来帮助缩进对齐的插件，需要的时候会很好用
         c/c++:
-            omnicppcomplete
-
-            提供C++代码的自动补全功能
-            a.vim
-
-            提供快速切换.h和.cpp文件的功能 
+            omnicppcomplete 提供C++代码的自动补全功能
+            a.vim 提供快速切换.h和.cpp文件的功能
         python:
-            pyflakes
-
-            提供实时检查python代码语法的功能（强烈推荐！）
-            pydoc
-
-            在vim中查找python文档
-            jedi-vim
-
-            提供很好的python代码提示，以及shift+k 提供 __doc__ 展示功能 
+            pyflakes 提供实时检查python代码语法的功能（强烈推荐！）
+            pydoc 在vim中查找python文档
+            jedi-vim 提供很好的python代码提示，以及shift+k 提供 __doc__ 展示功能
         js:
-            jsbeautify.vim
-
-            优化js代码，并不是简单的缩进，而是整个优化 
+            jsbeautify.vim 优化js代码，并不是简单的缩进，而是整个优化
         html/xml:
-            matchit
-
-            使%不仅能够匹配简单的<>()，还能匹配<html></html>之类标签的功能
-            xml.vim
-
-            提供快速编写xml/html的能力，如标签自动闭合等 
+            matchit 使%不仅能够匹配简单的<>()，还能匹配<html></html>之类标签的功能
+            xml.vim 提供快速编写xml/html的能力，如标签自动闭合等
     常用工具:
-        NERD_tree
-
-        提供展示文件/目录列表的功能，比自带的文件浏览器要好很多
-        conque_term
-
-        提供在vim中打开终端的功能，非常有用！
-        csExplorer
-
-        提供列出配色列表的功能，就不用一个个手工去敲配色名字了
-        calendar
-
-        提供日历的功能，并且可以记笔记
-        fencview
-
-        自动检测文件编码，也可以手动选择文件编码。
-        visincr
-
-        提供生成数列的功能
-        vimwiki
-
-        用vim来打造个人wiki
-        FuzzyFinder
-
-        很强大的文件查找工具，需要依赖L9
-        auto_mkdir
-
-        用 :w 写入文件的时候会自动创建目录
-        surround.vim
-
-        快速给单词/句子两边增加符号（包括html标签），缺点是不用用”.”来重复命令，repeat.vim可以解决这个问题
-        Vimpress
-
-        用vim来查看、发布、修改、删除博客，有人优化了这个代码:VimRepress
-        VOoM
-
-        提供outline功能，功能非常强大
-        Align
-
-        提供对齐文字的功能，不同于indent插件，一旦用到就会非常方便
-        CmdlineComplete
-
-        提供命令模式下的补全，可以补全缓冲区中出现过的单词，很好用（另一个选择是cmdline completion）
-        weibo.vim
-
-        在Vim中发腾讯微博（本博编写） 
+        NERD_tree 提供展示文件/目录列表的功能，比自带的文件浏览器要好很多
+        conque_term 提供在vim中打开终端的功能，非常有用！
+        csExplorer 提供列出配色列表的功能，就不用一个个手工去敲配色名字了
+        calendar 提供日历的功能，并且可以记笔记
+        fencview 自动检测文件编码，也可以手动选择文件编码。
+        visincr 提供生成数列的功能
+        vimwiki 用vim来打造个人wiki
+        FuzzyFinder 很强大的文件查找工具，需要依赖L9
+        auto_mkdir 用 :w 写入文件的时候会自动创建目录
+        surround.vim 快速给单词/句子两边增加符号（包括html标签），缺点是不用用”.”来重复命令，repeat.vim可以解决这个问题
+        Vimpress 用vim来查看、发布、修改、删除博客，有人优化了这个代码:VimRepress
+        VOoM 提供outline功能，功能非常强大
+        Align 提供对齐文字的功能，不同于indent插件，一旦用到就会非常方便
+        CmdlineComplete 提供命令模式下的补全，可以补全缓冲区中出现过的单词，很好用（另一个选择是cmdline completion）
+        weibo.vim 在Vim中发腾讯微博（本博编写）
     娱乐:
-        qiushibaike
-
-        可以在vim中看糗事百科（本博编写，纯属娱乐～～）
-        DrawIt
-
-        可以在vim中画图，键盘控制。（还有一款插件，sketch也是画图，不过是用鼠标控制） 
+        qiushibaike 可以在vim中看糗事百科（本博编写，纯属娱乐～～）
+        DrawIt 可以在vim中画图，键盘控制。（还有一款插件，sketch也是画图，不过是用鼠标控制）
 
 indent:
-
-    javascript.vim
-
-    提供js代码的智能缩进，仅使用了他的indent功能
-    indent/python.vim
-
-    提供python的语法缩进，比默认的要好很多(本博修改) 
+    javascript.vim 提供js代码的智能缩进，仅使用了他的indent功能
+    indent/python.vim 提供python的语法缩进，比默认的要好很多(本博修改)
 
 syntax:
+    javascript.vim 提供更好的js语法高亮
+    python.vim 提供更好的python语法高亮
+    actionscript.vim 提供as代码的语法高亮
+    json.vim 提供json的语法高亮
+    css.vim 本博修正版:css.vim 提供实时显示颜色的功能，如#FFFFFF
+    markdown 提供markdown着色功能，顺便也提供了snippet
 
-    javascript.vim
 
-    提供更好的js语法高亮
-    python.vim
 
-    提供更好的python语法高亮
-    actionscript.vim
 
-    提供as代码的语法高亮
-    json.vim
 
-    提供json的语法高亮
-    css.vim 本博修正版:css.vim
+1. Vim NERDComment
+<leader>cc   加注释
+<leader>cu   解开注释
 
-    提供实时显示颜色的功能，如#FFFFFF
-    markdown
+<leader>c<space>  加上/解开注释, 智能判断
+<leader>cy   先复制, 再注解(p可以进行黏贴)
 
-    提供markdown着色功能，顺便也提供了snippet 
+<leader>ca，在可选的注释方式之间切换，比如C/C++ 的块注释/* */和行注释//
+<leader>cc，注释当前行
+<leader>c，切换注释/非注释状态
+<leader>cs，以”性感”的方式注释
+<leader>cA，在当前行尾添加注释符，并进入Insert模式
+<leader>cu，取消注释
+Normal模式下，几乎所有命令前面都可以指定行数
+Visual模式下执行命令，会对选中的特定区块进行注释/反注释
+
+
+
+Bundle 'scrooloose/nerdcommenter'
+" 注释的时候自动加个空格, 强迫症必配
+let g:NERDSpaceDelims=1
+"
