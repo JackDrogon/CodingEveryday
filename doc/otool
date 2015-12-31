@@ -1,0 +1,7 @@
+objdump的选项-S、-l十分方便。如果二进制文件中带有调试信息，可以将源代码、文件名和行号与汇编代码对应显示。
+
+在OSX上，对应的工具是otool。与“objdump -Sl”能力接近的命令是otool -tV。
+
+这个实现中没有全局变量，数据段（Data Section）应该没有内容。我们用"otool -dV insertsort"这个命令，只显示Data Section, 验证一下：
+另外，可以用-l选项查看load commands：
+符号表的查看使用nm -px insertsort。-p 原始顺序，不做symbol字母或者数字排序。-x 16进制表示
