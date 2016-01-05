@@ -56,8 +56,8 @@ public:
 private:
 	mutex_type &mutex_;
 
-	LockGuard(const mutex_type &);	    // = delete;
-	LockGuard &operator=(const mutex_type &); // = delete;
+	LockGuard(const LockGuard&);	    // = delete;
+	LockGuard &operator=(const LockGuard&); // = delete;
 };
 
 using MutexGuard = LockGuard<Mutex>;
