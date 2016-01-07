@@ -1,0 +1,20 @@
+http://hi.baidu.com/xiaoxiaolq/blog/item/1edc2af30dd4915a342acc5e.html
+对__BEGIN_DECLS 和 __END_DECLS 的理解
+在C语言代码中头文件中，充斥着下面的代码片段：(sys/cdefs.h)
+
+    __BEGIN_DECLS
+    .....
+    .....
+    __END_DECLS
+
+#if defined(__cplusplus)
+       #define __BEGIN_DECLS extern "C" {
+       #define __END_DECLS }
+       #else
+       #define __BEGIN_DECLS
+       #define __END_DECLS
+#endif
+
+扩充C语言在编译的时候按照C++编译器进行统一处理，使得C++代码能够调用C编译生成的中间代码。
+
+由于C语言的头文件可能被不同类型的编译器读取，因此写C语言的头文件必须慎重。
