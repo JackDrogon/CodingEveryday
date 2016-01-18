@@ -2,9 +2,9 @@
 #define LOGGER_H_
 
 #include <string>
-#include <mutex>
 #include <ctime>
 
+// TODO: Logger singleton && LogDevice shared_ptr
 // TODO: use LogDevice as basic class, add FileDevice...
 // Refer to log4j, glog, log4c, log4cpp, log4erl, muduo log, log4r
 // TODO: Think about __FILE__, __LINE__, __PROGRAM__
@@ -16,19 +16,10 @@
 // TODO: Add rollback, shiftsize, fixed length file....
 // TODO: Add async write
 // TODO: Add Thread id, or thread name
+// TODO: LogDevice only accept string, Format is by Formatter
+// TODO: LogDevice AsyncWrite accpet data to append it's own buffer, use a background thread to write, SyncWrite Write immediately
+// TODO: Add logger flush callback
 
-class LogDevice {
-public:
-	LogDevice(FILE *handle);
-	~LogDevice();
-	void Write(const std::string &severity, const std::string &msg);
-	void Write(const std::string &severity, const std::string &now, const std::string &msg);
-
-	void Flush();
-private:
-	FILE *handle_;
-	std::mutex mutex_;
-};
 
 class LogTimeStamp {
 public:
@@ -47,14 +38,15 @@ public:
  * DEBUG < INFO < WARN < ERROR < FATAL < UNKNOWN
  */
 
+class LogDevice;
 // TODO:Info with char *
 class Logger {
 public:
 	const static int DEBUG, INFO, WARN, ERROR, FATAL, UNKNOWN;
 	const static std::string Severity[];
 
-	Logger();
-	Logger(const std::string& filename);
+	Logger(bool sync_write = true);
+	Logger(const std::string& filename, bool sync_write = true);
 	~Logger();
 	void SetLevel(const int level);
 
@@ -68,7 +60,8 @@ public:
 
 private:
 	int level_;
-	LogDevice log_device_;
+	// LogDevice &log_device_;
+	LogDevice *log_device_;
 };
 #endif
 
