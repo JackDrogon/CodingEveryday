@@ -1,0 +1,12 @@
+[root]
+name = "hello_world"
+version = "0.0.1"
+dependencies = [
+ "semver 0.1.12 (git+https://github.com/rust-lang/semver.git)",
+]
+
+[[package]]
+name = "semver"
+version = "0.1.12"
+source = "git+https://github.com/rust-lang/semver.git#0ea27e98b1b2a8f888992274d62e1c241e1ced39"
+
