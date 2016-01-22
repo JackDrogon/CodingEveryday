@@ -1,6 +1,7 @@
 # TODO: Add depency
 # TODO: Add platform detection
 # TODO: Add format
+# TODO: Delivery params to run
 
 CC       := g
 CFLAGS   := -Weverything
@@ -20,10 +21,13 @@ OBJS   := base64_test.o base64.o
 
 
 all: $(TARGET)
-.PHONY: all clean
+.PHONY: all clean run
 
 $(TARGET): $(OBJS)
 	$(LD) $(LDFLAGS) -o $@ $^
+
+run: $(TARGET)
+	./$(TARGET)
 
 tags:
 	ctags -R --c++-kinds=+p+l+x+c+d+e+f+g+m+n+s+t+u+v --fields=+liaS --extra=+q --extra=+f
