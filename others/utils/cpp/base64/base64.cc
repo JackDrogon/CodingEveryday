@@ -1,7 +1,7 @@
 #include "base64.h"
 
 namespace base64 {
-	static const char base64_encode_table[] = {
+	const char default_base64_encode_table[] = {
 		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
 		'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
 		'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
@@ -15,7 +15,7 @@ namespace base64 {
 #define BAD 65
 #define WS 66
 #define EQ 67
-	static const char base64_decode_table[] = {
+	const char default_base64_decode_table[] = {
 		BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,WS,WS,BAD,BAD,WS,BAD, // 1-15
 		BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD, // 16-31
 		BAD,WS,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,62,BAD,BAD,BAD, // 32-47
@@ -34,7 +34,7 @@ namespace base64 {
 		BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD
 	};
 
-	std::string encode(const std::string& src)
+	std::string encode(const std::string& src, const char base64_encode_table[])
 	{
 		std::string result((src.length()+2) / 3 * 4, '\0');
 		const char* src_data = src.data();
@@ -79,7 +79,7 @@ namespace base64 {
 		return result;
 	}
 
-	std::string decode(const std::string& src)
+	std::string decode(const std::string& src, const char base64_decode_table[])
 	{
 		std::string result((src.length()+3) / 4 * 3, '\0');
 		const char* src_data = src.data();
