@@ -23,3 +23,63 @@
 14. -[] 自己写Editor
 15. -[] LRU
 16. -[] scanf("^[\tn]")  axel
+17. -[] 虚拟机，Ruby/Lua/Erlang
+18. -[] DB Engine
+19. -[] 研究DB Engine
+20. -[] Proxy
+21. -[] 24点
+22. -[] 聊天室
+23. -[] busybox
+24. -[] 拼音转换
+25. -[] SQL解析
+26. -[] 内存压缩
+27. -[] 游戏模拟器
+
+
+###
+1. 继续优化我的CPP的Log库
+
+###
+1. 阅读Folly代码
+2. 阅读Flint代码
+3. Linux内核 VFS LVS MCU 调度器 文件系统设计 CPU管理 TCP/IP协议栈
+
+
+###
+1. 数据结构 红黑树 Heap Hash SkipList  高级数据结构
+2. 并发数据结构
+3. 算法
+4. Chrome基础库
+5. Coroutine && Sch.
+6. OS && Macro Kernel
+7. Network Library
+8. Json/Markdown Parser
+9. C++ Bitcask
+10. DB Engine
+11. 自己写持久化的hash， 比如bitcask tinycdb, APUE中DB的例子
+12. 自己实现locate， alfred
+13. TAOCP
+14. 文学编程
+15. Latex， MathTex的代码，移植Latex到iOS
+16. 实现CPU模拟器
+17. GPU加速
+18. 自己实现TCP/IP协议栈
+19. 自己实现CPU
+20. 自己实现编译器和自己的语言
+21. 自己实现自己的嵌入式系统
+
+###
+1. 2PC
+
+### RubyGems
+1. ReTmux
+2. CdSource
+
+##
+1. Ruby Yaml实现 http://pyyaml.org/wiki/LibYAML
+
+## 小游戏
+1. 八皇后
+2. 喝水
+3. 八数码
+4. 24点

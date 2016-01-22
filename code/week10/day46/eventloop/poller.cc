@@ -34,7 +34,7 @@ void Poller::AddChannel(Channel *channel)
 
 		channels_.resize(fd+1, std::make_pair<Channel*, int>(NULL, -1));
 		// channels_[fd] = std::make_pair<Channel*, int>(channel, static_cast<int>(pollfds_.size())-1); 直接用Channel竟然不行
-		channels_[fd] = std::make_pair<Channel*, int>(&*channel, static_cast<int>(pollfds_.size())-1);
+		channels_[fd] = std::make_pair(channel, static_cast<int>(pollfds_.size())-1);
 	} else {
 		// update existing one
 		struct pollfd& pfd = pollfds_[channels_[fd].second];
