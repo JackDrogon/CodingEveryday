@@ -4,6 +4,8 @@
 #include <sys/stat.h>
 #include <sys/dir.h>
 
+// TODO: Refer to clib fs
+
 bool is_dir(std::string& dirname)
 {
 	struct stat buf;
