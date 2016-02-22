@@ -32,9 +32,9 @@ void Poller::AddChannel(Channel *channel)
 		/* pollfds_[fd] = pfd; */
 		pollfds_.push_back(pfd);
 
-		channels_.resize(fd+1, std::make_pair<Channel*, int>(NULL, -1));
-		// channels_[fd] = std::make_pair<Channel*, int>(channel, static_cast<int>(pollfds_.size())-1); 直接用Channel竟然不行
-		channels_[fd] = std::make_pair<Channel*, int>(&*channel, static_cast<int>(pollfds_.size())-1);
+		channels_.resize(fd+1, std::make_pair<Channel*, int>(nullptr, -1));
+		// channels_[fd] = std::make_pair<Channel*, int>(channel, static_cast<int>(pollfds_.size())-1); 直接用Channel竟然不行, 指针此处会引起移动语义
+		channels_[fd] = std::make_pair(channel, static_cast<int>(pollfds_.size())-1);
 	} else {
 		// update existing one
 		struct pollfd& pfd = pollfds_[channels_[fd].second];
@@ -45,6 +45,10 @@ void Poller::AddChannel(Channel *channel)
 			pfd.fd = -1;
 		}
 	}
+}
+
+void Poller::RemoveChannel(Channel *channel)
+{
 }
 
 void Poller::Poll(int timeout_ms, ChannelList &fired_channels)

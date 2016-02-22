@@ -14,12 +14,13 @@ public:
 	~Poller();
 
 	void AddChannel(Channel *channel);
+	void RemoveChannel(Channel *channel);
 	void Poll(int timeout_ms, ChannelList &fired_channels);
 private:
 	typedef std::vector<struct pollfd> PollFdList;
 
 	PollFdList pollfds_;
-	std::vector<std::pair<Channel *, int> > channels_; // pair -> <Channel, Index>, index from pollfds
+	std::vector< std::pair<Channel *, int> > channels_; // pair -> <Channel, Index>, index from pollfds
 };
 
 #endif
