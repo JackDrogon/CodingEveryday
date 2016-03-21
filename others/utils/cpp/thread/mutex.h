@@ -27,6 +27,7 @@ public:
 	~Mutex() { pthread_mutex_destroy(&mutex_); }
 
 	void Lock() noexcept;
+
 	bool TryLock();
 	void UnLock() noexcept;
 
@@ -40,7 +41,6 @@ private:
 	Mutex &operator=(const Mutex &); // = delete;
 };
 
-void Mutex::Lock() noexcept { pthread_mutex_lock(&mutex_); }
 
 void Mutex::UnLock() noexcept { pthread_mutex_unlock(&mutex_); }
 
@@ -51,13 +51,13 @@ class LockGuard
 {
 public:
 	typedef _Mutex mutex_type;
-	LockGuard(mutex_type &mutex) : mutex_(mutex) { mutex_.Lock(); }
+	LockGuard(mutex_type& mutex) : mutex_(mutex) { mutex_.Lock(); }
 	~LockGuard() { mutex_.UnLock(); }
 private:
-	mutex_type &mutex_;
+	mutex_type& mutex_;
 
 	LockGuard(const LockGuard&);	    // = delete;
-	LockGuard &operator=(const LockGuard&); // = delete;
+	LockGuard& operator=(const LockGuard&); // = delete;
 };
 
 using MutexGuard = LockGuard<Mutex>;

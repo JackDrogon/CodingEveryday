@@ -86,3 +86,6 @@
 
 ## CPP
 c 获取绝对路径
+Status ReadFileToString(Env *env, const std::string &fname, std::string *data)
+	类似ruby的read
+移植Ruby的Enumerate， IO, Socket
