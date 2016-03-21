@@ -2,3 +2,4 @@ a.out
 *.pid
 *.dSYM
 tmp/*
+blogs.db

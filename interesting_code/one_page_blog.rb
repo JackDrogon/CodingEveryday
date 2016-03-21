@@ -15,15 +15,21 @@ end
 
 configure do
   Sequel.sqlite('blogs.db')
+  Sequel::Model.plugin :schema
 
   class Blog < Sequel::Model
-    unless table_exists?
-      set_schema do
-        primary_key :id
-        string :title
-        text :body
-      end
-      create_table
+    # unless table_exists?
+    #   set_schema do
+    #     primary_key :id
+    #     string :title
+    #     text :body
+    #   end
+    #   create_table
+    # end
+    set_schema do
+      primary_key :id
+      string :title
+      text :body
     end
   end
 end
@@ -70,13 +76,13 @@ __END__
 %div.body
   %table
     %thead
-      %tr 
+      %tr
         %td title
     %tbody
       - blogs.each do |blog|
         %tr
           %td= h blog.title
-          %td 
+          %td
             %a{:href => "/blogs/#{blog.id}"} show
           %td
             %a{:href => "/blogs/#{blog.id}/edit"} edit
