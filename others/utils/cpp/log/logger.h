@@ -51,17 +51,19 @@ public:
 	void SetLevel(const int level);
 
 	void Flush();
-	void Debug(const std::string& msg);
-	void Info(const std::string& msg);
-	void Warn(const std::string& msg);
-	void Error(const std::string& msg);
-	void Fatal(const std::string& msg);
-	void Unknown(const std::string& msg);
+	void Debug(std::string msg);
+	void Info(std::string msg);
+	void Warn(std::string msg);
+	void Error(std::string msg);
+	void Fatal(std::string msg);
+	void Unknown(std::string msg);
 
 private:
 	int level_;
 	// LogDevice &log_device_;
 	LogDevice *log_device_;
+
+	const std::string BuildOutput(const std::string& severity, std::string& msg);
 };
 #endif
 

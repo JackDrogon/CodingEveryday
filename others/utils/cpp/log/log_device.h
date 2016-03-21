@@ -4,6 +4,7 @@
 #include <string>
 #include <mutex>
 
+class Buffer;
 
 // doc: LogDevice is a basic class, you can implement it by you self
 // Flush, Write
@@ -13,15 +14,23 @@ class LogDevice {
 public:
 	LogDevice(FILE *handle, bool sync_write);
 	~LogDevice();
-	void Write(const std::string &severity, const std::string &now, const std::string &msg);
-	void ASyncWrite(const std::string &severity, const std::string &now, const std::string &msg);
-	void SyncWrite(const std::string &severity, const std::string &now, const std::string &msg);
+	void Append(const std::string &msg);
+	void ASyncWrite(const std::string &msg);
+	void SyncWrite(const std::string &msg);
 
 	void Flush();
+
 private:
+	void ASyncWriteAppend(const char* msg, const int size);
+
+	static const int BUFFER_SIZE;
+
 	FILE *handle_;
 	bool sync_write_;
 	std::mutex mutex_;
+
+	Buffer* current_buffer_;
+	Buffer* next_buffer_;
 };
 
 #endif // LOG_DEVICE_H_

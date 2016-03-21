@@ -1,6 +1,22 @@
 #include "log_device.h"
 
-LogDevice::LogDevice(FILE *handle, bool sync_write) : handle_(handle), sync_write_(sync_write) {}
+#include "buffer.h"
+
+#define fwrite_unlocked fwrite
+
+const int LogDevice::BUFFER_SIZE = 4 << 20;
+
+LogDevice::LogDevice(FILE *handle, bool sync_write) :
+	handle_(handle),
+	sync_write_(sync_write),
+	current_buffer_(nullptr),
+	next_buffer_(nullptr)
+{
+	if (!sync_write_) {
+		current_buffer_ = new Buffer(BUFFER_SIZE);
+		next_buffer_ = new Buffer(BUFFER_SIZE);
+	}
+}
 
 LogDevice::~LogDevice()
 {
@@ -8,27 +24,34 @@ LogDevice::~LogDevice()
 	fclose(handle_);
 }
 
-void LogDevice::Write(const std::string &severity, const std::string &now, const std::string &msg)
+void LogDevice::Append(const std::string &msg)
 {
 	if (sync_write_) {
-		SyncWrite(severity, now, msg);
+		SyncWrite(msg);
 	} else {
-		ASyncWrite(severity, now, msg);
+		ASyncWrite(msg);
 	}
 }
 
 
-void LogDevice::ASyncWrite(const std::string &severity, const std::string &now, const std::string &msg)
+void LogDevice::ASyncWrite(const std::string &msg)
 {
+	std::lock_guard<std::mutex> mutex_guard(mutex_);
 }
 
-void LogDevice::SyncWrite(const std::string &severity, const std::string &now, const std::string &msg)
+void LogDevice::ASyncWriteAppend(const char* msg, const int size)
+{
+	if (current_buffer_->Avail() > size) {
+		current_buffer_->Append(msg, size);
+	}
+}
+
+void LogDevice::SyncWrite(const std::string &msg)
 {
 	std::lock_guard<std::mutex> mutex_guard(mutex_);
 
-	fprintf(handle_, "[%s] %s, ", severity.data(), now.data());
-	fwrite(msg.data(), 1, msg.size(), handle_);
-	fprintf(handle_, "\n");
+	// TODO: funlocked
+	fwrite_unlocked(msg.data(), 1, msg.size(), handle_);
 }
 
 

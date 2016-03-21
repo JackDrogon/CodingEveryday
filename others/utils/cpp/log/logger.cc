@@ -17,52 +17,64 @@ Logger::Logger(const std::string &filename, bool sync_write) : log_device_(new L
 
 Logger::~Logger() { delete log_device_; }
 
+
+inline const std::string Logger::BuildOutput(const std::string& severity, std::string& msg)
+{
+	// FIXME: can use iomov
+	std::string output;
+	char buf[64];
+	sprintf(buf, "[%s] %s, ", severity.data(), LogTimeStamp::Now().data());
+	output.append(buf).append(msg).append("\n");
+
+	return output;
+}
+
 // TODO: 防止level的越界
 void Logger::SetLevel(const int level)
 {
 	level_ = level;
 }
 
-void Logger::Debug(const std::string& msg)
+void Logger::Debug(std::string msg)
 {
 	if (level_ <= DEBUG) {
-		log_device_->Write(Severity[DEBUG], LogTimeStamp::Now(), msg);
+		log_device_->Append(BuildOutput(Severity[DEBUG], msg));
 	}
 }
 
-void Logger::Info(const std::string& msg)
+void Logger::Info(std::string msg)
 {
 	if (level_ <= INFO) {
-		log_device_->Write(Severity[INFO], LogTimeStamp::Now(), msg);
+		log_device_->Append(BuildOutput(Severity[INFO], msg));
 	}
 }
 
-void Logger::Warn(const std::string& msg)
+void Logger::Warn(std::string msg)
 {
 	if (level_ <= WARN) {
-		log_device_->Write(Severity[WARN], LogTimeStamp::Now(), msg);
+		log_device_->Append(BuildOutput(Severity[WARN], msg));
 	}
 }
 
-void Logger::Error(const std::string& msg)
+void Logger::Error(std::string msg)
 {
 	if (level_ <= ERROR) {
-		log_device_->Write(Severity[ERROR], LogTimeStamp::Now(), msg);
+		log_device_->Append(BuildOutput(Severity[ERROR], msg));
 		Flush();
 	}
 }
 
-void Logger::Fatal(const std::string& msg)
+void Logger::Fatal(std::string msg)
 {
 	if (level_ <= FATAL) {
-		log_device_->Write(Severity[FATAL], LogTimeStamp::Now(), msg);
+		log_device_->Append(BuildOutput(Severity[FATAL], msg));
 		Flush();
 	}
 }
 
-void Logger::Unknown(const std::string& msg)
+void Logger::Unknown(std::string msg)
 {
-	log_device_->Write(Severity[UNKNOWN], LogTimeStamp::Now(), msg);
+	log_device_->Append(BuildOutput(Severity[UNKNOWN], msg));
 	Flush();
 }
 
