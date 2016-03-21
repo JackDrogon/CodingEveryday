@@ -12,6 +12,7 @@ CXX      := g++
 CXXFLAGS := -Weverything -std=c++1y
 LD       := g++
 LDFLAGS  :=
+
 LLVM-CC  := llvm-gcc -S -emit-llvm
 
 ifeq ($(DEBUG),yes)
@@ -28,9 +29,6 @@ all: $(TARGET)
 .PHONY: all clean run $(TARGET)
 
 $(TARGET): $(OBJS)
-
-# $(OBJS): %.o : %.cc
-# 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 $(OBJS): %.ll : %.c
 	$(LLVM-CC) $<
