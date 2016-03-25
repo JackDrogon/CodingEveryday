@@ -5,6 +5,8 @@
 # TODO: Add auto generate Project Makefile with TARGET from file name
 # TODO: Use wildchard && vpath to generate OBJS
 # TODO: Refer to erlang.mk && kbuild
+# TODO: Remove -Weverything in Linux
+# TODO: build-in memcpy
 
 CC       := g
 CFLAGS   := -Weverything
@@ -16,6 +18,9 @@ LDFLAGS  :=
 ifeq ($(DEBUG),yes)
 	CFLAGS   += -g
 	CXXFLAGS += -g
+else
+	CFLAGS   += -DNDEBUG
+	CXXFLAGS += -DNDEBUG
 endif
 
 
