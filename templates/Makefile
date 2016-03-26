@@ -16,8 +16,8 @@ LD       := g++
 LDFLAGS  :=
 
 ifeq ($(DEBUG),yes)
-	CFLAGS   += -g
-	CXXFLAGS += -g
+	CFLAGS   += -g -pg -ggdb3
+	CXXFLAGS += -g -pg -ggdb3
 else
 	CFLAGS   += -DNDEBUG
 	CXXFLAGS += -DNDEBUG
