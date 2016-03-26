@@ -18,7 +18,6 @@ public:
 
 	void Resume();
 	bool Status();
-	void SetFid(uint64_t fid) { fid_ = fid; }
 
 private:
 	uint64_t fid_;
@@ -33,6 +32,7 @@ private:
 	char stack_[STACK_SIZE];
 
 	void Run();
+	void SetFid(uint64_t fid) { fid_ = fid; }
 	// void SetMain(Event main_event) { main_ = main_event; }
 };
 
