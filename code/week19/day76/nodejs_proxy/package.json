@@ -1,0 +1,8 @@
+{
+	"name": "proxy",
+	"version": "3.0.0",
+	"private": false,
+	"dependencies": {
+		"proxy": "latest"
+	}
+}
