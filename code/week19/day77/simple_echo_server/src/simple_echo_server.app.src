@@ -1,0 +1,16 @@
+{application, 'simple_echo_server',
+ [{description, "An OTP application"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, {'simple_echo_server_app', []}},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {env,[]},
+  {modules, [simple_echo_server_app, simple_echo_server_sup, simple_echo_server]},
+
+  {contributors, []},
+  {licenses, []},
+  {links, []}
+ ]}.
