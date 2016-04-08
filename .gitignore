@@ -3,3 +3,4 @@ a.out
 *.dSYM
 tmp/*
 blogs.db
+base64.dylib

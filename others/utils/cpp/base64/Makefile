@@ -30,10 +30,10 @@ run: $(TARGET)
 	./$(TARGET)
 
 tags:
-	ctags -R --c++-kinds=+p+l+x+c+d+e+f+g+m+n+s+t+u+v --fields=+liaS --extra=+q --extra=+f
+	@ctags -R --c++-kinds=+p+l+x+c+d+e+f+g+m+n+s+t+u+v --fields=+liaS --extra=+q --extra=+f
 
 gtags:
-	gtags -c
+	@gtags -c
 
 clean:
 	-$(RM) -rf $(OBJS) $(TARGET)

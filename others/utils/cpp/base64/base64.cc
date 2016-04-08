@@ -12,9 +12,10 @@ namespace base64 {
 		'4', '5', '6', '7', '8', '9', '+', '/'
 	};
 
-#define BAD 65
-#define WS 66
-#define EQ 67
+	const static int BAD = 65;
+	const static int WS = 66;
+	const static int EQ = 67;
+
 	const char default_base64_decode_table[] = {
 		BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,WS,WS,BAD,BAD,WS,BAD, // 1-15
 		BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD,BAD, // 16-31

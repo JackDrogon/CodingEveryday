@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+# -*- coding:utf-8 -*-
+
+file = ARGV[0]
+exit 1 if not file
+
+codes = File.readlines file
+p codes
+p h = codes.map { |line| line.rstrip << "\n" }
