@@ -47,6 +47,7 @@ public:
 
 	Logger(bool sync_write = true);
 	Logger(const std::string& filename, bool sync_write = true);
+	Logger(const char* filename, bool sync_write = true);
 	~Logger();
 	void SetLevel(const int level);
 

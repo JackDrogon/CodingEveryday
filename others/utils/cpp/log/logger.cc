@@ -12,8 +12,8 @@ const int Logger::UNKNOWN = 5;
 const std::string Logger::Severity[] = {"DEBUG", "INFO", "WARN", "ERROR", "FATAL", "UNKNOWN"};
 
 Logger::Logger(bool sync_write) : log_device_(new LogDevice(stdout, sync_write)) {}
-
-Logger::Logger(const std::string &filename, bool sync_write) : log_device_(new LogDevice(fopen(filename.c_str(), "ae"), sync_write)) {}
+Logger::Logger(const char* filename, bool sync_write) : log_device_(new LogDevice(fopen(filename, "ae"), sync_write)) {}
+Logger::Logger(const std::string &filename, bool sync_write) : Logger(filename.data(), sync_write) {}
 
 Logger::~Logger() { delete log_device_; }
 
