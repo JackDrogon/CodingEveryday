@@ -11,6 +11,8 @@ public:
 	Buffer(int capacity = (4 << 10));
 	~Buffer();
 
+	char* Data();
+
 	int Append(std::string &msg);
 	int Append(const char* msg);
 	int Append(const char* msg, const int size);

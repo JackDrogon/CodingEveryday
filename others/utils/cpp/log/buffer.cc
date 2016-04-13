@@ -19,6 +19,11 @@ Buffer::~Buffer()
 	delete[] buffer_;
 }
 
+char *Buffer::Data()
+{
+	return buffer_;
+}
+
 int Buffer::Append(std::string& msg)
 {
 	return Append(msg.data(), msg.size());

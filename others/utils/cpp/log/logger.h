@@ -48,6 +48,7 @@ public:
 	Logger(bool sync_write = true);
 	Logger(const std::string& filename, bool sync_write = true);
 	Logger(const char* filename, bool sync_write = true);
+	Logger(FILE *stream, bool sync_write = true);
 	~Logger();
 	void SetLevel(const int level);
 
@@ -61,8 +62,7 @@ public:
 
 private:
 	int level_;
-	// LogDevice &log_device_;
-	LogDevice *log_device_;
+	LogDevice* log_device_;
 
 	const std::string BuildOutput(const std::string& severity, std::string& msg);
 };

@@ -16,27 +16,35 @@ LDFLAGS  :=
 ifeq ($(DEBUG),yes)
 	CFLAGS   += -g
 	CXXFLAGS += -g
+	LDFLAGS += -g
 endif
 
 
-TARGET := test_file_logger
-OBJ = test_file_logger.o
-BOBJS   := logger.o log_device.o buffer.o
+TARGET := logger
+TARGETS := test_file_logger test_logger
+OBJ1 = test_file_logger.o
+OBJ2 = test_logger.o
+BOBJS   := logger.o sync_log_device.o async_log_device.o buffer.o
 
 
 all: $(TARGET)
-.PHONY: all clean run
+.PHONY: all clean run $(TARGET)
 
-$(TARGET): $(OBJ) $(BOBJS)
+$(TARGET) : $(TARGETS)
+
+test_file_logger: $(OBJ1) $(BOBJS)
 	$(LD) $(LDFLAGS) -o $@ $^
 
-run: $(TARGET)
-	./$(TARGET)
+test_logger: $(OBJ2) $(BOBJS)
+	$(LD) $(LDFLAGS) -o $@ $^
+
+run: $(TARGETS)
+	./$(TARGETS)
 tags:
-	ctags -R --c++-kinds=+p+l+x+c+d+e+f+g+m+n+s+t+u+v --fields=+liaS --extra=+q --extra=+f
+	@ctags -R --c++-kinds=+p+l+x+c+d+e+f+g+m+n+s+t+u+v --fields=+liaS --extra=+q --extra=+f
 
 gtags:
-	gtags -c
+	@gtags -c
 
 clean:
-	-$(RM) -rf $(OBJ) $(BOBJS) $(TARGET)
+	-$(RM) -rf $(OBJ1) $(OBJ2) $(BOBJS) $(TARGETS)

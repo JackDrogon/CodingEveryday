@@ -2,9 +2,6 @@
 #define LOG_DEVICE_H_
 
 #include <string>
-#include <mutex>
-
-class Buffer;
 
 // doc: LogDevice is a basic class, you can implement it by you self
 // Flush, Write
@@ -12,25 +9,13 @@ class Buffer;
 
 class LogDevice {
 public:
-	LogDevice(FILE *handle, bool sync_write);
-	~LogDevice();
-	void Append(const std::string &msg);
-	void ASyncWrite(const std::string &msg);
-	void SyncWrite(const std::string &msg);
+	LogDevice() = default;
+	virtual ~LogDevice() = default;
 
-	void Flush();
-
-private:
-	void ASyncWriteAppend(const char* msg, const int size);
-
-	static const int BUFFER_SIZE;
-
-	FILE *handle_;
-	bool sync_write_;
-	std::mutex mutex_;
-
-	Buffer* current_buffer_;
-	Buffer* next_buffer_;
+	virtual void Append(const std::string &msg) = 0;
+	virtual void Append(const char *msg, const size_t size) = 0;
+	virtual void Flush() = 0;
 };
+
 
 #endif // LOG_DEVICE_H_

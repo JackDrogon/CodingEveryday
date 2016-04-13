@@ -1,5 +1,7 @@
 #include "logger.h"
 #include "log_device.h"
+#include "sync_log_device.h"
+#include "async_log_device.h"
 
 const int Logger::DEBUG   = 0;
 const int Logger::INFO    = 1;
@@ -11,9 +13,18 @@ const int Logger::UNKNOWN = 5;
 
 const std::string Logger::Severity[] = {"DEBUG", "INFO", "WARN", "ERROR", "FATAL", "UNKNOWN"};
 
-Logger::Logger(bool sync_write) : log_device_(new LogDevice(stdout, sync_write)) {}
-Logger::Logger(const char* filename, bool sync_write) : log_device_(new LogDevice(fopen(filename, "ae"), sync_write)) {}
+Logger::Logger(bool sync_write) : Logger(stdout, sync_write){}
+Logger::Logger(const char* filename, bool sync_write) : Logger(fopen(filename, "ae"), sync_write) {}
 Logger::Logger(const std::string &filename, bool sync_write) : Logger(filename.data(), sync_write) {}
+Logger::Logger(FILE *stream, bool sync_write) :
+	log_device_(nullptr)
+{
+	if (sync_write) {
+		log_device_ = new SyncLogDevice(stream);
+	} else {
+		log_device_ = new AsyncLogDevice(stream);
+	}
+}
 
 Logger::~Logger() { delete log_device_; }
 
