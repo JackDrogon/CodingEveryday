@@ -29,7 +29,7 @@ Logger::Logger(FILE *stream, bool sync_write) :
 Logger::~Logger() { delete log_device_; }
 
 
-inline const std::string Logger::BuildOutput(const std::string& severity, std::string& msg)
+inline const std::string Logger::BuildOutput(const std::string& severity, std::string& msg) const
 {
 	// FIXME: can use iomov
 	std::string output;
@@ -46,28 +46,28 @@ void Logger::SetLevel(const int level)
 	level_ = level;
 }
 
-void Logger::Debug(std::string msg)
+void Logger::Debug(std::string msg) const
 {
 	if (level_ <= DEBUG) {
 		log_device_->Append(BuildOutput(Severity[DEBUG], msg));
 	}
 }
 
-void Logger::Info(std::string msg)
+void Logger::Info(std::string msg) const
 {
 	if (level_ <= INFO) {
 		log_device_->Append(BuildOutput(Severity[INFO], msg));
 	}
 }
 
-void Logger::Warn(std::string msg)
+void Logger::Warn(std::string msg) const
 {
 	if (level_ <= WARN) {
 		log_device_->Append(BuildOutput(Severity[WARN], msg));
 	}
 }
 
-void Logger::Error(std::string msg)
+void Logger::Error(std::string msg) const
 {
 	if (level_ <= ERROR) {
 		log_device_->Append(BuildOutput(Severity[ERROR], msg));
@@ -75,7 +75,7 @@ void Logger::Error(std::string msg)
 	}
 }
 
-void Logger::Fatal(std::string msg)
+void Logger::Fatal(std::string msg) const
 {
 	if (level_ <= FATAL) {
 		log_device_->Append(BuildOutput(Severity[FATAL], msg));
@@ -83,13 +83,13 @@ void Logger::Fatal(std::string msg)
 	}
 }
 
-void Logger::Unknown(std::string msg)
+void Logger::Unknown(std::string msg) const
 {
 	log_device_->Append(BuildOutput(Severity[UNKNOWN], msg));
 	Flush();
 }
 
-void Logger::Flush()
+void Logger::Flush() const
 {
 	log_device_->Flush();
 }
