@@ -9,7 +9,6 @@
 
 class LogDevice {
 public:
-	LogDevice() = default;
 	virtual ~LogDevice() = default;
 
 	virtual void Append(const std::string &msg) = 0;

@@ -4,7 +4,7 @@
 #include <list>
 #include <unordered_map>
 #include <utility>
-// #include <ostream>
+#include <iostream>
 
 // TODO: Add comments
 // TODO: capicity && resize... hash_map && list malloc memery when construct
@@ -19,9 +19,9 @@ public:
 		Key, std::pair<Value, typename list::iterator> >;
 	
 	explicit LRU(unsigned int capacity) :
-		capacity_(capacity), keys_(capacity), values_(capacity) {}
+		capacity_(capacity) {}
 
-	void put(const Key& key, const Value& value)
+	void put(const Key &key, const Value &value)
 	{
 		auto value_iter = values_.find(key);
 		if (value_iter == values_.end()) {
@@ -32,12 +32,12 @@ public:
 		}
 	}
 
-	bool get(const Key& key, Value& value)
+	bool get(const Key &key, Value &value)
 	{
 		auto value_iter = values_.find(key);
 		if (value_iter != values_.end()) {
 			use(value_iter);
-			value = value_iter->second->first;
+			value = value_iter->second.first;
 			return true;
 		}
 
@@ -47,9 +47,9 @@ public:
 	unsigned int Capacity() { return capacity_; }
 
 private:
-	unsigned int capacity_;
-	list keys_;
-	map values_;
+	// Not copyable, not assignable.
+	LRU(const LRU&);
+	LRU& operator =(const LRU&);
 
 	void evict()
 	{
@@ -60,11 +60,11 @@ private:
 
 	void insert(const Key& key, const Value& value)
 	{
-		if (keys_.size() > capacity_) {
+		if (keys_.size() == capacity_) {
 			evict();
 		}
 
-		auto key_iter = keys_.insert(key);
+		auto key_iter = keys_.insert(keys_.end(), key);
 		values_[key] = std::make_pair(value, key_iter);
 	}
 
@@ -78,10 +78,28 @@ private:
 	}
 
 	// Give the operator access to our internals.
-	// friend std::ostream& operator << <>(
-	// 		std::ostream& stream,
-	// 		const cache<Key, Value>& c);
+	friend std::ostream& operator << (
+			std::ostream& stream,
+			const LRU<Key, Value>& c);
 
+	unsigned int capacity_;
+	list keys_;
+	map values_;
 };
+
+
+template <typename Key, typename Value>
+std::ostream& operator << (
+		std::ostream& stream,
+		const LRU<Key, Value>& c)
+{
+	for (auto i1 = c.keys.begin(); i1 != c.keys.end(); i1++) {
+		stream << *i1 << ": ";
+		auto i2 = c.values.find(*i1);
+		stream << *i2 << std::endl;
+	}
+	return stream;
+}
+
 
 #endif // LRU_H_
