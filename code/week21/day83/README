@@ -1,0 +1,2 @@
+clang 的默认的__cplusplus是199711, -std=c++1y 是 201402
+gcc6默认是201402
