@@ -60,11 +60,13 @@ void Poller::Poll(int timeout_ms, ChannelList &fired_channels)
 	if (num_events > 0) {
 		/* fired_channels.resize(num_events); */
 		fired_channels.clear();
-		for (PollFdList::const_iterator pfd = pollfds_.begin();
-				pfd != pollfds_.end(); ++pfd) {
-			Channel* channel = channels_[pfd->fd].first;
-			channel->SetRevents(pfd->revents);
-			fired_channels.push_back(channel);
+		for (PollFdList::const_iterator pfd = pollfds_.cbegin();
+				pfd != pollfds_.cend(); ++pfd) {
+			if (pfd->revents > 0) {
+				Channel* channel = channels_[pfd->fd].first;
+				channel->SetRevents(pfd->revents);
+				fired_channels.push_back(channel);
+			}
 		}
 	}
 }
