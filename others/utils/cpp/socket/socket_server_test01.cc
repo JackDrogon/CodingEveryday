@@ -23,7 +23,7 @@ int main()
 		if (client.get() == nullptr) {
 			break;
 		} else {
-			cout << "Accept a new connection!" << endl;
+			cout << "Accept a new connection, from " << client_address.ToString() << endl;
 		}
 
 		client->Write("Hello, Morning!\n");

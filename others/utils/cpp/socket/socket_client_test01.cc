@@ -15,7 +15,7 @@ int main()
 	client.Connect(server_address);
 	auto msg = client.Read();
 
-	cout << msg << endl;
+	cout << msg << flush;
 	
 	return 0;
 }
