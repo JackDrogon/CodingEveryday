@@ -22,6 +22,8 @@ public:
 	const struct sockaddr_in *SockAddr() const { return &address_; }
 	struct sockaddr_in *SockAddr() { return &address_; }
 
+	std::string Ip() const;
+	uint16_t Port() const;
 	std::string ToString() const;
 
 private:

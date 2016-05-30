@@ -1,6 +1,7 @@
 #include "inet_address.h"
 
 #include <cstring>
+#include <cassert>
 #include <arpa/inet.h>
 // #include <endian.h>
 
@@ -26,6 +27,28 @@ InetAddress::InetAddress(const in_addr_t ip, uint16_t port)
 	address_.sin_family = AF_INET;
 	address_.sin_addr.s_addr = ip;
 	address_.sin_port = htons(port);
+}
+
+std::string InetAddress::Ip() const
+{
+	const size_t size = 64;
+	char buf[size];
+	::inet_ntop(AF_INET, &address_.sin_addr, buf, static_cast<socklen_t>(size));
+
+	return buf;
+}
+
+uint16_t InetAddress::Port() const
+{
+	return ntohs(address_.sin_port);
+}
+
+std::string InetAddress::ToString() const
+{
+	auto ip_port = Ip();
+	uint16_t port = Port();
+
+	return ip_port.append(":").append(std::to_string(port));
 }
 
 } // nepenthe
