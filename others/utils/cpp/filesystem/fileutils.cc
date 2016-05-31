@@ -1,10 +1,16 @@
-#include "FileUtils.h"
+#include "fileutils.h"
 
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/dir.h>
 
 // TODO: Refer to clib fs
+
+namespace nepenthe {
+
+namespace filesystem {
+
+namespace fileutils {
 
 bool is_dir(std::string& dirname)
 {
@@ -46,7 +52,7 @@ bool mkdir(std::string& dirname)
 		return true;
 	}
 
-	return  mkdir(dirname.data(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) == 0;
+	return  ::mkdir(dirname.data(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) == 0;
 }
 
 bool mkdir_p(std::string& dirname)
@@ -96,3 +102,44 @@ uint64_t du(const std::string& filename)
 
 	return sum;
 }
+
+
+
+// Return the filesize of `filename` or -1.
+off_t file_size(const char *filename)
+{
+	struct stat s;
+	if (stat(filename, &s) < 0)
+		return -1;
+	return s.st_size;
+}
+
+
+// Check if `filename` exists.
+int file_exists(const char *filename) { return -1 != file_size(filename); }
+
+
+// Recursively creates directories on `path`.
+// Returns 1 if somehow couldn't create one.
+void file_mkdir_p(std::string path)
+{
+	if (path.empty()) return;
+	size_t len = path.size();
+	if (path[len - 1] == '/') path[len - 1] = '\0';
+
+	for (size_t i = 0; i != len ; ++i) {
+		if (path[i] == '/') {
+			path[i] = '\0';
+			::mkdir(path.data(), S_IRWXU);
+			path[i] = '/';
+		}
+	}
+
+	::mkdir(path.data(), S_IRWXU);
+}
+
+} // fileutils
+
+} // filesystem
+
+} // nepenthe

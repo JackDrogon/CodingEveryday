@@ -1,10 +1,18 @@
 // coding: utf-8
 
-#ifndef _FILEUTILS_H__
-#define _FILEUTILS_H__
+#ifndef FILEUTILS_H__
+#define FILEUTILS_H__
+
+#pragma once
 
 #include <string>
 #include <cstdint>
+
+namespace nepenthe {
+
+namespace filesystem {
+
+namespace fileutils {
 
 // TODO: 参考shell的test命令
 // TODO: 参考Ruby && Erlang
@@ -19,5 +27,11 @@ bool chdir(std::string& dirname);
 bool chmod(std::string& filename, int mode);
 bool cp(std::string& orig, std::string& dest);
 uint64_t du(const std::string& filename);
+
+} // fileutils
+
+} // filesystem
+
+} // nepenthe
 
 #endif // _FILEUTILS_H__
