@@ -6,6 +6,10 @@
 #include <utility>
 #include <iostream>
 
+namespace nepenthe {
+
+namespace data_structure {
+
 // TODO: Add comments
 // TODO: capicity && resize... hash_map && list malloc memery when construct
 // TODO: NoCopyable
@@ -101,5 +105,8 @@ std::ostream& operator << (
 	return stream;
 }
 
+} // data_structure
+
+} // nepenthe
 
 #endif // LRU_H_
