@@ -44,7 +44,7 @@ public:
 		return false;
 	}
 
-	unsigned int Capacity() { return capacity_; }
+	unsigned int Capacity() const { return capacity_; }
 
 private:
 	// Not copyable, not assignable.
