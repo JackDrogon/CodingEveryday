@@ -1,5 +1,8 @@
 #include "fileutils.h"
 
+#include <cstdlib>
+#include <unistd.h>
+#include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/dir.h>
@@ -118,6 +121,30 @@ off_t file_size(const char *filename)
 // Check if `filename` exists.
 int file_exists(const char *filename) { return -1 != file_size(filename); }
 
+
+// Read the contents of `filename` or return NULL.
+char *file_read(const char *filename)
+{
+	off_t len = file_size(filename);
+	if (len < 0)
+		return NULL;
+
+	char *buf = (char *)malloc(len + 1);
+	if (!buf)
+		return NULL;
+
+	int fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return NULL;
+
+	ssize_t size = read(fd, buf, len);
+	close(fd);
+
+	if (size != len)
+		return NULL;
+
+	return buf;
+}
 
 // Recursively creates directories on `path`.
 // Returns 1 if somehow couldn't create one.

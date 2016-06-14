@@ -1,7 +1,7 @@
 // coding: utf-8
 
-#ifndef FILEUTILS_H__
-#define FILEUTILS_H__
+#ifndef FILEUTILS_H_
+#define FILEUTILS_H_
 
 #pragma once
 
@@ -28,10 +28,16 @@ bool chmod(std::string& filename, int mode);
 bool cp(std::string& orig, std::string& dest);
 uint64_t du(const std::string& filename);
 
+off_t file_size(const char *filename);
+int file_exists(const char *filename);
+char *file_read(const char *filename);
+void file_mkdir_p(std::string path);
+// rm -rf
+
 } // fileutils
 
 } // filesystem
 
 } // nepenthe
 
-#endif // _FILEUTILS_H__
+#endif // FILEUTILS_H_
