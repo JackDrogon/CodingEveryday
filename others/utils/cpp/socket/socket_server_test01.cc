@@ -4,7 +4,7 @@
 #include <iostream>
 #include <netinet/in.h>
 
-using namespace nepenthe;
+using namespace nepenthe::net;
 using namespace std;
 
 int main()

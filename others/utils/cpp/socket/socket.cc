@@ -1,7 +1,12 @@
+// Author : Jack Drogon
+// Mail   : jack.xsuperman@gmail.com
+
+
 #include "socket.h"
 #include "inet_address.h"
 
 #include <cstdlib>
+ #include <sys/uio.h>
 #include <unistd.h>
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -11,6 +16,7 @@
 
 namespace nepenthe {
 
+namespace net {
 
 Socket::Socket(int type, int protocol)
 	: sockfd_(::socket(AF_INET, type, protocol))
@@ -134,7 +140,7 @@ std::string Socket::Read()
 	}
 }
 
-ssize_t Socket::ReadN(char *const buf, size_t n)
+ssize_t Socket::Readn(char *const buf, size_t n)
 {
 	size_t nleft;
 	ssize_t nread;
@@ -155,6 +161,11 @@ ssize_t Socket::ReadN(char *const buf, size_t n)
 		ptr += nread;
 	}
 	return (n - nleft); /* return >= 0 */
+}
+
+ssize_t Socket::Readv(const struct iovec *iov, int iovcnt)
+{
+	return ::readv(sockfd_, iov, iovcnt);
 }
 
 int Socket::Write(const char write_buffer[], ssize_t nbytes)
@@ -178,5 +189,12 @@ int Socket::Write(const char write_buffer[], ssize_t nbytes)
 	}
 	return nbytes;
 }
+
+ssize_t Socket::Writev(const struct iovec *iov, int iovcnt)
+{
+	return ::writev(sockfd_, iov, iovcnt);
+}
+
+} // net
 
 } // nepenthe

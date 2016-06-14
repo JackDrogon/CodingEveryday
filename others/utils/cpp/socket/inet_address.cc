@@ -1,3 +1,7 @@
+// Author : Jack Drogon
+// Mail   : jack.xsuperman@gmail.com
+
+
 #include "inet_address.h"
 
 #include <cstring>
@@ -6,6 +10,13 @@
 // #include <endian.h>
 
 namespace nepenthe {
+
+namespace net {
+
+InetAddress::InetAddress(const struct sockaddr_in &address)
+	: address_(address)
+{
+}
 
 InetAddress::InetAddress(const std::string &ip, uint16_t port)
 	: InetAddress(ip.c_str(), port)
@@ -50,5 +61,7 @@ std::string InetAddress::ToString() const
 
 	return ip_port.append(":").append(std::to_string(port));
 }
+
+} // net
 
 } // nepenthe

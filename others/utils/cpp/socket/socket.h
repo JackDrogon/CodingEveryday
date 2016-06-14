@@ -10,6 +10,8 @@
 
 namespace nepenthe {
 
+namespace net {
+
 class InetAddress;
 
 // TODO: right reference
@@ -32,15 +34,20 @@ public:
 	int Listen(int backlog = SOMAXCONN);
 	std::shared_ptr<Socket> Accept(InetAddress &client_address);
 
+	std::string Read();
+	ssize_t Readn(char *const buf, size_t n);
+	ssize_t Readv(const struct iovec *iov, int iovcnt);
+
 	int Write(std::string write_buffer);
 	int Write(const char write_buffer[], ssize_t len);
-	std::string Read();
-	ssize_t ReadN(char *const buf, size_t n);
+	ssize_t Writev(const struct iovec *iov, int iovcnt);
 
 	int SockFd() const { return sockfd_; }
 private:
 	const int sockfd_;
 };
+
+} // net
 
 } // nepenthe
 

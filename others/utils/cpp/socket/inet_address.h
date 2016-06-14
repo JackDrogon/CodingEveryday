@@ -1,3 +1,7 @@
+// Author : Jack Drogon
+// Mail   : jack.xsuperman@gmail.com
+
+
 #ifndef INET_ADDRESS_H_
 #define INET_ADDRESS_H_
 
@@ -8,12 +12,14 @@
 
 namespace nepenthe {
 
+namespace net {
 
 // TODO: deny default cons
 
 class InetAddress {
 public:
 	InetAddress() = default;
+	InetAddress(const struct sockaddr_in &address);
 	InetAddress(const std::string &ip, uint16_t port);
 	InetAddress(const char *ip, uint16_t port);
 	InetAddress(const in_addr_t ip, uint16_t port);
@@ -29,6 +35,9 @@ public:
 private:
 	struct sockaddr_in address_;
 };
+
+
+} // net
 
 } // nepenthe
 
