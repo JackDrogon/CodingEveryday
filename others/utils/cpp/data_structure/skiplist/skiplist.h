@@ -33,7 +33,7 @@ public:
 	void Clear();
 
 private:
-	inline struct Node *NewNode(const Key &key, const Value &value , int height) const
+	inline struct Node *NewNode(const Key &key, const Value &value , size_t height) const
 	{
 		Node *node = static_cast<Node *>(malloc(sizeof(Node) + sizeof(Node *) * height));
 
@@ -49,7 +49,7 @@ private:
 	// node at "level" for every level in [0..max_height_-1].
 	Node *FindGreaterOrEqual(const Key &key, Node **prev) const;
 
-	int RandomHeight();
+	size_t RandomHeight();
 
 private:
 	enum { kMaxHeight = 16 };
@@ -63,7 +63,7 @@ private:
 
 template <typename Key, typename Value>
 struct SkipList<Key, Value>::Node {
-	explicit Node(const Key &k, const Value &v, int height) : key(k), value(v)
+	explicit Node(const Key &k, const Value &v, size_t height) : key(k), value(v)
 	{
 		memset(next, '\0', sizeof(Node *) * height);
 	}
@@ -92,7 +92,7 @@ typename SkipList<Key, Value>::Node *
 SkipList<Key, Value>::FindGreaterOrEqual(const Key &key, Node **prev) const
 {
 	Node *node = head_;
-	int level = max_height_ - 1;
+	size_t level = max_height_ - 1;
 	
 	while (true) {
 		Node *next = node->next[level];
@@ -110,10 +110,10 @@ SkipList<Key, Value>::FindGreaterOrEqual(const Key &key, Node **prev) const
 }
 
 template <typename Key, typename Value>
-int SkipList<Key, Value>::RandomHeight()
+size_t SkipList<Key, Value>::RandomHeight()
 {
 	static const unsigned int kBranching = 4;
-	int height = 1;
+	size_t height = 1;
 	while (height < kMaxHeight && ((rnd_() % kBranching) == 0)) {
 		height++;
 	}
@@ -141,24 +141,25 @@ bool SkipList<Key, Value>::Set(const Key &key, const Value &value)
 	Node *prev[kMaxHeight];
 	Node *node = FindGreaterOrEqual(key, prev);
 
-	int height = RandomHeight();
+	size_t height = RandomHeight();
 	if (node && node->key == key) {
 		node->value = value;
 		return false;
 	} else {
 		if (height > max_height_) {
-			for (int i = max_height_; i < height; ++i) {
+			for (size_t i = max_height_; i < height; ++i) {
 				prev[i] = head_;
 			}
 		}
 
 		node = NewNode(key, value, height);
-		for (int i = 0; i < height; i++) {
+		for (size_t i = 0; i < height; i++) {
 			node->next[i] = prev[i]->next[i];
 			prev[i]->next[i] = node;
 		}
 
 		max_height_ = height;
+		++ size_;
 		return true;
 	}
 }
@@ -174,7 +175,7 @@ bool SkipList<Key, Value>::Delete(const Key &key)
 	if (!node) {
 		return false;
 	} else {
-		for (int i = 0; i < max_height_; ++i) {
+		for (size_t i = 0; i < max_height_; ++i) {
 			if (prev[i]) {
 				prev[i]->next[i] = node->next[i];
 			}
@@ -185,6 +186,8 @@ bool SkipList<Key, Value>::Delete(const Key &key)
 		while (max_height_ > 1 && head_->next[max_height_] == NULL) {
 			--max_height_;
 		}
+
+		--size_;
 
 		return true;
 	}
@@ -201,6 +204,7 @@ void SkipList<Key, Value>::Clear()
 		node = next;
 	}
 	max_height_ = 1;
+	size_ = 0;
 }
 
 } // data_structure
