@@ -203,6 +203,7 @@ void SkipList<Key, Value>::Clear()
 		free(node);
 		node = next;
 	}
+	memset(head_->next, '\0', sizeof(Node *) * kMaxHeight);
 	max_height_ = 1;
 	size_ = 0;
 }
