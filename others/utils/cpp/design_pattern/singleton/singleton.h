@@ -24,7 +24,7 @@ private:
 };
 
 template<typename Type>
-std::shared_ptr<Type> Singleton<Type>::instance_;
+std::shared_ptr<Type> Singleton<Type>::instance_ = nullptr;
 
 } // design_pattern
 
