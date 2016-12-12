@@ -8,7 +8,7 @@
 # TODO: Remove -Weverything in Linux
 # TODO: build-in memcpy
 
-CC       := g
+CC       := gcc
 CFLAGS   := -Weverything
 CXX      := g++
 CXXFLAGS := -Weverything -std=c++1y
