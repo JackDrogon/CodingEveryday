@@ -48,6 +48,15 @@ public:
 		return false;
 	}
 
+	void remove(const Key &key)
+	{
+		auto value_iter = values_.find(key);
+		if (value_iter == values_.end()) return;
+
+		values_.erase(value_iter);
+		keys_.erase(value_iter->second.second);
+	}
+
 	unsigned int Capacity() const { return capacity_; }
 
 private:
