@@ -1,6 +1,8 @@
 #ifndef SCHEDULER_H_
 #define SCHEDULER_H_
 
+#define _XOPEN_SOURCE
+
 #include <unordered_map>
 #include <memory>
 #include <ucontext.h>

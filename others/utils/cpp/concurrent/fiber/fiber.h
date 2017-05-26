@@ -1,6 +1,8 @@
 #ifndef FIBRT_H_
 #define FIBRT_H_
 
+#define _XOPEN_SOURCE
+
 #include <functional>
 #include <ucontext.h>
 
