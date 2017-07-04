@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 require 'active_record'
-
+ActiveRecord::Base.logger = Logger.new(STDOUT)
 class Person < ActiveRecord::Base
   establish_connection adapter: 'sqlite3', database: 'foobar.db'
   connection.create_table table_name, force: true do |t|
