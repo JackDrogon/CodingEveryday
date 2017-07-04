@@ -2,8 +2,7 @@
 // Mail   : jack.xsuperman@gmail.com
 
 
-#ifndef SOCKET_H_
-#define SOCKET_H_
+#pragma once
 
 #include <memory>
 #include <sys/socket.h>
@@ -20,6 +19,7 @@ class InetAddress;
 class Socket {
 public:
 	explicit Socket(int sockfd) : sockfd_(sockfd) {}
+	explicit Socket(std::string uri);
 	Socket(int type, int protocol);
 	~Socket();
 
@@ -43,6 +43,7 @@ public:
 	ssize_t Writev(const struct iovec *iov, int iovcnt);
 
 	int SockFd() const { return sockfd_; }
+
 private:
 	const int sockfd_;
 };
@@ -50,5 +51,3 @@ private:
 } // net
 
 } // nepenthe
-
-#endif // SOCKET_H_

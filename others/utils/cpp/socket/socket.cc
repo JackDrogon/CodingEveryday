@@ -23,6 +23,10 @@ Socket::Socket(int type, int protocol)
 {
 }
 
+Socket::Socket(std::string uri)
+{
+}
+
 Socket::~Socket() { ::close(sockfd_); }
 
 int Socket::Close() { return ::close(sockfd_); }

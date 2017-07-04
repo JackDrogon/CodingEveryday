@@ -1,26 +1,22 @@
-#ifndef __POLLER_H__
+#pragma once
 
 #include <vector>
-#include <map>
-#include <utility>
 
+class Eventloop;
 class Channel;
 
 class Poller {
 public:
 	typedef std::vector<Channel*> ChannelList;
 
-	Poller();
-	~Poller();
+	Poller() {}
+	virtual ~Poller() {}
 
-	void AddChannel(Channel *channel);
-	void RemoveChannel(Channel *channel);
-	void Poll(int timeout_ms, ChannelList &fired_channels);
-private:
-	typedef std::vector<struct pollfd> PollFdList;
+	virtual void Poll(int timeout_ms, ChannelList &fired_channels) = 0;
 
-	PollFdList pollfds_;
-	std::vector< std::pair<Channel *, int> > channels_; // pair -> <Channel, Index>, index from pollfds
+	virtual void AddChannel(Channel *channel) = 0;
+	virtual void RemoveChannel(Channel *channel) = 0;
+	virtual void ModifyChannel(ChannelList *channel) = 0;
+
+	virtual void Fork() = 0;
 };
-
-#endif
