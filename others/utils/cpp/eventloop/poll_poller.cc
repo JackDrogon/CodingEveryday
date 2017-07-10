@@ -1,4 +1,4 @@
-#include "Poller.h"
+#include "poll_poller.h"
 
 #include "channel.h"
 #include <vector>
@@ -7,15 +7,15 @@
 #include <iostream>
 
 
-Poller::Poller()
+PollPoller::PollPoller()
 {
 }
 
-Poller::~Poller()
+PollPoller::~PollPoller()
 {
 }
 
-void Poller::AddChannel(Channel *channel)
+void PollPoller::AddChannel(Channel *channel)
 {
 	// TODO: bzero resize vector
 	// TODO: when to reduce channel size
@@ -47,11 +47,11 @@ void Poller::AddChannel(Channel *channel)
 	}
 }
 
-void Poller::RemoveChannel(Channel *channel)
+void PollPoller::RemoveChannel(Channel *channel)
 {
 }
 
-void Poller::Poll(int timeout_ms, ChannelList &fired_channels)
+void PollPoller::Poll(int timeout_ms, ChannelList &fired_channels)
 {
 	int num_events = ::poll(&*pollfds_.begin(), pollfds_.size(), timeout_ms);
 
