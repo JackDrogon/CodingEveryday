@@ -7,3 +7,6 @@ UseTab: Always
 BreakBeforeBraces: Linux
 AllowShortIfStatementsOnASingleLine: false
 IndentCaseLabels: false
+
+# Disable formatting options which may break tests.
+SortIncludes: false
