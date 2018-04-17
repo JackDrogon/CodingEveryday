@@ -2,3 +2,8 @@ The poll() function is used to run ready handlers until there are no
 more ready handlers remaining or until the io_service object has been stopped
 
 The poll() function will not block the program while there is more work to do. It will execute the current work and then return the value.
+这里的poll和syscall poll还是有区别的，这里的poll已经帮忙处理了handler了
+源码里面work是调用io_context.work_start对outstanding进行+1, 析构才是-1，调用work_finishded, 这个会判定=0，直接stop() iocontext
+本质上而言work这个class是侵入性的，没有任何handle，直接对task的数目进行了控制
+
+所以在asio_work_poll中worker没有析构所以io_context.run()不会退出的

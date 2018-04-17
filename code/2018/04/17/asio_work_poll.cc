@@ -12,6 +12,7 @@ int main()
 		io_context.poll();
 		cout << "Num: " << i << endl;
 	}
+	io_context.run();
 
 	return 0;
 }
