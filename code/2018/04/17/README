@@ -1,0 +1,4 @@
+The poll() function is used to run ready handlers until there are no
+more ready handlers remaining or until the io_service object has been stopped
+
+The poll() function will not block the program while there is more work to do. It will execute the current work and then return the value.
