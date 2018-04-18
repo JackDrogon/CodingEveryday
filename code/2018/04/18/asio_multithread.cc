@@ -26,11 +26,12 @@ int main()
 		threads.emplace_back(thread(worker_fun));
 	}
 	cin.get();
-	io_context.stop();
 
+	worker.reset();
 	for (int i = 0; i < 5; ++i) {
 		threads[i].join();
 	}
+	io_context.run();
 
 	return 0;
 }
