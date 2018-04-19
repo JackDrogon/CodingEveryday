@@ -1,0 +1,1 @@
+关于post的使用可以看asio的chat client的例子，这个很清晰。在client中一个线程从stdin stream中获取数据, 另一个线程发送数据，为了提交task到io_context线程中使用用了post
