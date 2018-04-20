@@ -1,0 +1,11 @@
+local_repository(
+  # env = configuration.default_shell_env,
+  # Name of the Abseil repository. This name is defined within Abseil's
+  # WORKSPACE file, in its `workspace()` metadata
+  name = "com_google_absl",
+
+  # NOTE: Bazel paths must be absolute paths. E.g., you can't use ~/Source
+  # path = "~/Source/Github/Company/Google/abseil-cpp",
+  # path=env["HOME"] + "/Source/Github/Company/Google/abseil-cpp",
+  path = "/Users/Nepenthe/Source/Github/Company/Google/abseil-cpp",
+)
