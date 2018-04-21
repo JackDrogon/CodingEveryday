@@ -13,6 +13,7 @@ LDFLAGS  :=
 ifeq ($(DEBUG),yes)
 	CFLAGS   += -g
 	CXXFLAGS += -g
+	LDFLAGS  += -g
 endif
 
 
