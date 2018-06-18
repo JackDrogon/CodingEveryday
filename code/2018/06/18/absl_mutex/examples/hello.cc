@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <thread>
+#include <memory>
 
 using namespace std;
 
@@ -22,8 +23,7 @@ int main()
 	int count = 0;
 	vector<std::thread> threads;
 	for (int i = 0; i < 10; ++i) {
-		threads.emplace_back(
-		    std::thread{func, std::ref(mutex_), std::ref(count)});
+		threads.emplace_back(func, std::ref(mutex_), std::ref(count));
 	}
 	for (auto &thread : threads) {
 		thread.join();
