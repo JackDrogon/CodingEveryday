@@ -3,6 +3,8 @@ using namespace std;
 
 #include <gflags/gflags.h>
 
+#define VERSION "1.0.0"
+
 DEFINE_bool(verbose, false, "Display program name before message");
 DEFINE_string(message, "Hello world!", "Message to print");
 
@@ -15,7 +17,7 @@ DEFINE_validator(message, &IsNonEmptyMessage);
 int main(int argc, char *argv[])
 {
 	gflags::SetUsageMessage("some usage message");
-	gflags::SetVersionString("1.0.0");
+	gflags::SetVersionString(VERSION);
 	gflags::ParseCommandLineFlags(&argc, &argv, true);
 
 	if (FLAGS_verbose) {
