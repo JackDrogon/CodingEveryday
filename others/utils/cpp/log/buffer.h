@@ -8,25 +8,25 @@
 
 class Buffer {
 public:
-	Buffer(int capacity = (4 << 10));
+	Buffer(size_t capacity = (4 << 10));
 	~Buffer();
 
 	char* Data();
 
-	int Append(std::string &msg);
-	int Append(const char* msg);
-	int Append(const char* msg, const int size);
+	size_t Append(std::string &msg);
+	size_t Append(const char* msg);
+	size_t Append(const char* msg, const size_t size);
 
-	int Capacity();
-	int Size();
+	size_t Capacity();
+	size_t Size();
 	void Clear();
-	int Avail();
+	size_t Avail();
 	bool Full();
-	// int Resize(int size);
+	// size_t Resize(size_t size);
 
 private:
-	int capacity_;
-	int size_;
+	size_t capacity_;
+	size_t size_;
 	char* buffer_;
 };
 
