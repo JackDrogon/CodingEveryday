@@ -1,9 +1,7 @@
 #pragma once
 
 #include <list>
-#include <type_traits>
 #include <unordered_map>
-#include <utility>
 #include <sstream>
 
 namespace nepenthe
@@ -117,7 +115,7 @@ std::ostream &operator<<(std::ostream &stream, const LRU<Key, Value> &c)
 	for (auto &&key : c.keys_) {
 		stream << key << ": ";
 		auto it = c.values_.find(key);
-		stream << it->second.first << std::endl;
+		stream << it->second.first << '\n';
 	}
 	return stream;
 }

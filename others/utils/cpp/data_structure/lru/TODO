@@ -1,0 +1,7 @@
+list
+struct Entry {
+	Key,
+	Value
+}
+
+map<std::ref<Key>, std::pair<Entry>>
