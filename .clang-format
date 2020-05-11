@@ -40,11 +40,6 @@ BraceWrapping:
 
 # AllowShortFunctionsOnASingleLine: SFS_InlineOnly
 
-# NOTE: Disable formatting options which may break tests.
-SortIncludes: true
-ReflowComments: false
-
-
 AccessModifierOffset: -4
 AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments: false
@@ -440,9 +435,14 @@ PenaltyBreakString: 10
 PenaltyExcessCharacter: 100
 PenaltyReturnTypeOnItsOwnLine: 60
 
-PointerAlignment: Right
+# FIXME(refactor)
+NamespaceIndentation: None
+# NOTE: Disable formatting options which may break tests.
+SortIncludes: true
 ReflowComments: false
-SortIncludes: false
+
+
+PointerAlignment: Right
 #SortUsingDeclarations: false # Unknown to clang-format-4.0
 SpaceAfterCStyleCast: false
 SpaceAfterTemplateKeyword: true
