@@ -35,4 +35,9 @@ add_executable(msgpack msgpack.cc)
 target_compile_features(msgpack PRIVATE cxx_std_17)
 target_link_libraries(msgpack iguana)
 
+# xml
+add_executable(xml xml.cc)
+target_compile_features(xml PRIVATE cxx_std_17)
+target_link_libraries(xml iguana)
+
 #}
