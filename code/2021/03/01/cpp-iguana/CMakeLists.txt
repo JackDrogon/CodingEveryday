@@ -19,7 +19,15 @@ endif()
 
 
 # Add executable {
+
+# sample
 add_executable(sample sample.cc)
-target_link_libraries(sample iguana)
 target_compile_features(sample PRIVATE cxx_std_17)
+target_link_libraries(sample iguana)
+
+# json
+add_executable(json json.cc)
+target_compile_features(json PRIVATE cxx_std_17)
+target_link_libraries(json iguana)
+
 #}
