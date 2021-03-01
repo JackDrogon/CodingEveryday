@@ -30,4 +30,9 @@ add_executable(json json.cc)
 target_compile_features(json PRIVATE cxx_std_17)
 target_link_libraries(json iguana)
 
+# msgpack
+add_executable(msgpack msgpack.cc)
+target_compile_features(msgpack PRIVATE cxx_std_17)
+target_link_libraries(msgpack iguana)
+
 #}
