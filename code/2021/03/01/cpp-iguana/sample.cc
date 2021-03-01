@@ -2,6 +2,8 @@
 #include <iguana/xml.hpp>
 #include <iostream>
 
+namespace
+{
 struct person {
 	std::string name;
 	int age;
@@ -50,7 +52,6 @@ void test_json()
 	iguana::json::to_json(sst, composit);
 	std::cout << sst.str() << std::endl;
 
-	//	const char* str_comp = R"({"a":1, "b":["tom", "jack"], "c":3, "d":{"2":3,"5":6},"e":{"3":4},"f":5.3,"g":[{"id":1},{"id":2}])";
 	const char *str_comp =
 		R"({"b":["tom", "jack"], "a":1, "c":3, "e":{"3":4}, "d":{"2":3,"5":6},"f":5.3,"g":[{"id":1},{"id":2}])";
 	composit_t comp;
@@ -76,6 +77,7 @@ void test_xml()
 	two t1;
 	iguana::xml::from_xml(t1, xml.data(), xml.length());
 }
+} // namespace
 
 int main()
 {
