@@ -40,9 +40,7 @@ class Book {
 
 class BookShelf final : public Aggregate<Book> {
     public:
-	BookShelf()
-	{
-	}
+	BookShelf() = default;
 
 	auto GetSize() const
 	{
