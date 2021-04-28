@@ -7,17 +7,19 @@
 
 TEST_CASE("GetSize", "[BookShelf]")
 {
+	SECTION("mutable bookshelf")
 	{
-		BookShelf bookself;
-		REQUIRE(bookself.GetSize() == 0);
+		BookShelf bookshelf;
+		REQUIRE(bookshelf.GetSize() == 0);
 
-		bookself.AppendBook("hello");
-		REQUIRE(bookself.GetSize() == 1);
+		bookshelf.AppendBook("hello");
+		REQUIRE(bookshelf.GetSize() == 1);
 	}
 
+	SECTION("const bookshelf")
 	{
-		const BookShelf bookself;
-		REQUIRE(bookself.GetSize() == 0);
+		const BookShelf bookshelf;
+		REQUIRE(bookshelf.GetSize() == 0);
 	}
 }
 
@@ -25,13 +27,13 @@ TEST_CASE("GetBookAt", "[BookShelf]")
 {
 	std::vector<std::string> v{ "Around the World in 80 Days", "Bible",
 				    "Cinderella", "Daddy-Long-Legs" };
-	BookShelf bookself;
+	BookShelf bookshelf;
 	for (auto &&name : v) {
-		bookself.AppendBook(name);
+		bookshelf.AppendBook(name);
 	}
 
 	for (size_t idx = 0; idx < v.size(); ++idx) {
-		REQUIRE(bookself.GetBookAt(idx).Name() == v[idx]);
+		REQUIRE(bookshelf.GetBookAt(idx).Name() == v[idx]);
 	}
 }
 
@@ -39,25 +41,25 @@ TEST_CASE("AppendBook", "[BookShelf]")
 {
 	std::vector<std::string> v{ "Around the World in 80 Days", "Bible",
 				    "Cinderella", "Daddy-Long-Legs" };
-	BookShelf bookself;
+	BookShelf bookshelf;
 	for (auto &&name : v) {
-		bookself.AppendBook(name);
+		bookshelf.AppendBook(name);
 	}
 
-	REQUIRE(bookself.GetSize() == v.size());
+	REQUIRE(bookshelf.GetSize() == v.size());
 }
 
 TEST_CASE("Iterate", "[BookShelfIterator]")
 {
 	std::vector<std::string> v{ "Around the World in 80 Days", "Bible",
 				    "Cinderella", "Daddy-Long-Legs" };
-	BookShelf bookself;
+	BookShelf bookshelf;
 	for (auto &&name : v) {
-		bookself.AppendBook(name);
+		bookshelf.AppendBook(name);
 	}
 
 	size_t idx = 0;
-	auto iter = bookself.NewIterator();
+	auto iter = bookshelf.NewIterator();
 	while (iter->HasNext()) {
 		auto book = iter->Next();
 		REQUIRE(book.Name() == v[idx++]);
