@@ -50,7 +50,12 @@ class BookShelf final : public Aggregate<Book> {
 	}
 
 	// TODO: const
-	[[nodiscard]] auto &GetBookAt(size_t index)
+	[[nodiscard]] auto GetBookAt(size_t index) -> Book &
+	{
+		return books_[index];
+	}
+
+	[[nodiscard]] auto GetBookAt(size_t index) const -> const Book &
 	{
 		return books_[index];
 	}
@@ -73,22 +78,10 @@ class BookShelfIterator final : public Iterator<Book> {
 	{
 	}
 
-	bool HasNext() const override
-	{
-		return current_index_ < bookself_->GetSize();
-	}
-
-	Book &Next() override
-	{
-		return bookself_->GetBookAt(current_index_++);
-	}
+	bool HasNext() const override;
+	Book &Next() override;
 
     private:
 	size_t current_index_;
 	BookShelf *bookself_;
 };
-
-std::unique_ptr<Iterator<Book>> BookShelf::NewIterator()
-{
-	return std::make_unique<BookShelfIterator>(this);
-}
