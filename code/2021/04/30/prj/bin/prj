@@ -7,18 +7,30 @@ else
 	BASEDIR=$(dirname "$0")
 fi
 
+if [ "$#" -ne 4 ]; then
+	echo "prj new [lang] [prj_name]"
+fi
+
 # TODO: check argc
 
 ROOT_DIR=$(realpath "$BASEDIR/..")
 PROJECT_TEMPLATES_DIR="${ROOT_DIR}/project_templates"
+BIN_DIR="${ROOT_DIR}/bin"
 # ============ Const Variables ============
 
 # Add command helper
 # new
 # NOTE: new $prj
+action="$1"
 prj_template_name="$2"
-prj_name="$3"
+prj_name="$3" # check prj_name not by '/'
+prj_dir="${PWD}/${prj_name}"
 
-mkdir -p "${prj_name}"
-rsync -a "${PROJECT_TEMPLATES_DIR}/${prj_template_name}/" "${prj_name}"
-(cd "${prj_name}" && git init .)
+mkdir -p "${prj_dir}"
+rsync -a "${PROJECT_TEMPLATES_DIR}/${prj_template_name}/" "${prj_dir}"
+
+cd "${prj_name}" || exit 0
+git init .
+
+prj_bin="${BIN_DIR}/prj-${prj_template_name}"
+${prj_bin} "${action}" "${prj_dir}" "${prj_name}"
