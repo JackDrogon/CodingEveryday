@@ -1,9 +1,12 @@
+
+BUILD_DIR ?= _build
+
 .PHONY: ci lint format update release debug test coverage clean
 
 .PHONY: build
 build:
-	@cmake -B _build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release . 
-	@cmake --build _build --config Release -- -j$(nproc -c)
+	@cmake -B $(BUILD_DIR) -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release . 
+	@cmake --build $(BUILD_DIR) --config Release -- -j$(nproc -c)
 
 ci: update lint test
 
@@ -23,8 +26,13 @@ release:
 debug:
 	blade build -p debug --bundle debug
 
+# dep build, ignore it for build dummy output
 test:
-	blade test -p debug --bundle debug
+	@ctest --test-dir $(BUILD_DIR)
+
+# force-test: build
+# 	@ctest --test-dir $(BUILD_DIR)
+
 
 # format
 # cpplint, clang, gcc
@@ -60,6 +68,6 @@ coverage: clean
 	find build64_debug/ ../build64_debug/ -name '*.gcda' | xargs gcov -m -n -r
 
 clean:
-	@cmake --build _build --target clean
+	@cmake --build $(BUILD_DIR) --target clean
 	# blade clean . -p debug || blade clean || echo "done"
 	# find build64_debug/ ../build64_debug/ -name '*.gcda' | xargs rm -f
