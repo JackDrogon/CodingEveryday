@@ -1,0 +1,3 @@
+.clang-format
+others/utils/cpp/thread/threadLocal_test.cc
+others/utils/cpp/thread/thread_local.h
