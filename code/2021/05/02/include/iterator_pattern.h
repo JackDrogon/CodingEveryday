@@ -3,8 +3,8 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
-
 
 template <typename Object> class Iterator {
     public:
@@ -25,7 +25,7 @@ template <typename Object> class Aggregate {
 
 class Book {
     public:
-	Book(std::string name) : name_(std::move(name))
+	explicit Book(std::string name) : name_(std::move(name))
 	{
 	}
 
@@ -47,7 +47,6 @@ class BookShelf final : public Aggregate<Book> {
 		return books_.size();
 	}
 
-	// TODO: const
 	[[nodiscard]] auto GetBookAt(size_t index) -> Book &
 	{
 		return books_[index];
@@ -63,7 +62,7 @@ class BookShelf final : public Aggregate<Book> {
 		books_.emplace_back(std::move(name));
 	}
 
-	virtual std::unique_ptr<Iterator<Book>> NewIterator() override;
+	std::unique_ptr<Iterator<Book>> NewIterator() override;
 
     private:
 	std::vector<Book> books_;

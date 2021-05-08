@@ -1,5 +1,7 @@
 #include "iterator_pattern.h"
 
+#include <memory>
+
 bool BookShelfIterator::HasNext() const
 {
 	return current_index_ < bookself_->GetSize();

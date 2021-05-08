@@ -1,7 +1,7 @@
 #include "iterator_pattern.h"
 
-#include <vector>
 #include <string>
+#include <vector>
 
 #include <catch2/catch.hpp>
 
