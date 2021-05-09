@@ -1,10 +1,10 @@
 #pragma once
 
-#include <iostream>
-#include <memory>
-#include <string>
-#include <utility>
-#include <vector>
+#include <cstddef> // for size_t
+#include <iostream> // for string
+#include <memory> // for unique_ptr
+#include <type_traits> // for move
+#include <vector> // for vector
 
 template <typename Object> class Iterator {
     public:
