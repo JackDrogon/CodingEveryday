@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# LINT = OFF, return
+# check args[1] (linter) in LINTER array
+# FIXME: Debug echo "$@" >> /tmp/xxxx
+if [ "$#" -eq 0 ]; then
+	echo "no linter, use $0 {linter}" >&2
+	exit 1
+fi
+
+if [ z"$LINT" == z"OFF" ]; then
+	exit
+fi
+
+declare -a linters
+if [ z"${LINTERS}" != z"" ]; then
+	IFS=',' read -r -a linters <<< "$LINTERS"
+	# echo "${linters[*]}"
+fi
+
+linter=$1
+
+function has_linter() {
+	# local needle="$1" arrref="$2[@]" item
+	local _linter
+	for _linter in "${linters[@]}"; do
+		[[ "${_linter}" == "${linter}" ]] && return 0
+	done
+
+	return 1
+}
+
+# TODO VERBOSE: linter not found
+if has_linter; then
+	shift
+	if [ z"${VERBOSE}" != z"" ]; then
+		echo "$linter" "$@"
+	fi
+
+	# TODO(Drogon): output with linter {linter}: {line}
+	$linter "$@"
+fi
