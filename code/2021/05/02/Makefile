@@ -1,18 +1,17 @@
-
 BUILD_DIR ?= _build
 
 .PHONY: ci lint format update release debug test coverage clean
 
 .PHONY: build
 build:
-	@cmake -B $(BUILD_DIR) -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release . 
-	@cmake --build $(BUILD_DIR) --config Release -- -j$(nproc -c)
+	@cmake -B $(BUILD_DIR) -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_LINK_WHAT_YOU_USE=TRUE .
+	@cmake --build $(BUILD_DIR) --config Release -- -j $(shell nproc)
 
 ci: update lint test
 
 lint:
-	git ls-files | egrep '.*\.(h|cc)' | xargs python dev-tools/cpplint.py
-	git ls-files | egrep '.*\.(h|cc)' | xargs python3 dev-tools/check-style.py
+	git ls-files include src | egrep '.*\.(h|cc)' | xargs cpplint
+	# git ls-files include src | egrep '.*\.(h|cc)' | xargs python3 dev-tools/check-style.py
 
 format:
 	git ls-files | egrep '.*\.(h|cc)' | xargs clang-format -style=file -i
@@ -30,15 +29,21 @@ debug:
 test:
 	@ctest --test-dir $(BUILD_DIR)
 
+# install devtools
+devtools:
+	@dev-tools/install.sh
+
 # force-test: build
 # 	@ctest --test-dir $(BUILD_DIR)
 
+# spell: misspell
+# align golang tools
 
 # format
 # cpplint, clang, gcc
 # cppcheck flint
 # clang-tidy, clang-analyzer
-# cover
+# coverity
 # perf
 # flamegraph
 # bundle
