@@ -1,17 +1,27 @@
 BUILD_DIR ?= _build
 
-.PHONY: ci lint format update release debug test coverage clean
+.PHONY: ci format update release debug test coverage clean
 
 .PHONY: build
 build:
-	@cmake -B $(BUILD_DIR) -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_LINK_WHAT_YOU_USE=TRUE .
+	@# -DCMAKE_LINK_WHAT_YOU_USE=TRUE; OSX ld: unknown option: --no-as-needed
+	@cmake -B $(BUILD_DIR) -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release .
 	@cmake --build $(BUILD_DIR) --config Release -- -j $(shell nproc)
 
 ci: update lint test
 
-lint:
+.PHONY: lint
+lint: cpplint
+
+cpplint:
 	git ls-files include src | egrep '.*\.(h|cc)' | xargs cpplint
-	# git ls-files include src | egrep '.*\.(h|cc)' | xargs python3 dev-tools/check-style.py
+
+spell:
+	@#find . -type f -not -path "./vendor/*" -print0 | xargs -0 misspell
+	find . -type f -not -path "./_build/*" -print0 -not -path "tags" | xargs -0 misspell
+
+# check-style:
+# git ls-files include src | egrep '.*\.(h|cc)' | xargs python3 dev-tools/check-style.py
 
 format:
 	git ls-files | egrep '.*\.(h|cc)' | xargs clang-format -style=file -i
@@ -56,7 +66,7 @@ devtools:
 # 如何能知道一个头文件有哪些依赖
 
 # ctest, cpack
-# TODO
+# TODO, FIXME
 # 项目管理
 
 # doc: doxygen
@@ -67,6 +77,9 @@ ctags:
 
 gtags:
 	@global -u
+
+todo:
+	@rg TODO
 
 coverage: clean
 	env -u DISTCC_HOSTS DISABLE_DISTCCD=1 COVERAGE=1 blade test -p debug --bundle debug

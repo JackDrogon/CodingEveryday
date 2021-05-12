@@ -1,5 +1,20 @@
 find_package(Catch2 2 REQUIRED)
 
+
+# Linter {
+set(LINTER_WRAPPER "${CMAKE_SOURCE_DIR}/dev-tools/linter_wrapper")
+set(CMAKE_CXX_CPPCHECK "${LINTER_WRAPPER}" "cppcheck")
+set(CMAKE_CXX_CPPLINT "${LINTER_WRAPPER}" "cpplint")
+
+set(CMAKE_CXX_CLANG_TIDY "${LINTER_WRAPPER}" "clang-tidy")
+set(CLANG_TIDY_CONF_FILE "${CMAKE_SOURCE_DIR}/.clang-tidy")
+file(SHA1 ${CLANG_TIDY_CONF_FILE} clang_tidy_sha1)
+set(CLANG_TIDY_DEFINITIONS "CLANG_TIDY_SHA1=${clang_tidy_sha1}")
+unset(clang_tidy_sha1)
+configure_file(${CLANG_TIDY_CONF_FILE} ${CLANG_TIDY_CONF_FILE} COPYONLY)
+# }
+
+
 add_executable(iterator_pattern_unittest catch_main.cc iterator_pattern_unittest.cc iterator_pattern.cc)
 target_include_directories(iterator_pattern_unittest PRIVATE ${PROJECT_SOURCE_DIR}/include)
 target_link_libraries(iterator_pattern_unittest PRIVATE Catch2::Catch2)

@@ -22,20 +22,23 @@ linter=$1
 
 function has_linter() {
 	# local needle="$1" arrref="$2[@]" item
+
+	# ALL in linters
+	# linter contains linters
 	local _linter
 	for _linter in "${linters[@]}"; do
-		[[ "${_linter}" == "${linter}" ]] && return 0
+		[[ "${_linter}" == "${linter}" || "${_linter}" == "ALL" ]] && return 0
 	done
 
 	return 1
 }
 
-# TODO VERBOSE: linter not found
+if [ z"${VERBOSE}" != z"" ]; then
+	echo "$linter" "$@"
+fi
+
 if has_linter; then
 	shift
-	if [ z"${VERBOSE}" != z"" ]; then
-		echo "$linter" "$@"
-	fi
 
 	# TODO(Drogon): output with linter {linter}: {line}
 	$linter "$@"
