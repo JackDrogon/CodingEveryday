@@ -2,11 +2,22 @@ BUILD_DIR ?= _build
 
 .PHONY: ci format update release debug test coverage clean
 
+define run_build
+	@# env $1
+	$(1) cmake --build $(BUILD_DIR) --config Release -- -j $(shell nproc)
+endef
+
 .PHONY: build
 build:
 	@# -DCMAKE_LINK_WHAT_YOU_USE=TRUE; OSX ld: unknown option: --no-as-needed
 	@cmake -B $(BUILD_DIR) -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release .
-	@cmake --build $(BUILD_DIR) --config Release -- -j $(shell nproc)
+	$(call run_build, LINTERS=ALL)
+
+build_offlint:
+	$(call run_build, LINT=OFF)
+
+ci: update lint test
+
 
 ci: update lint test
 
