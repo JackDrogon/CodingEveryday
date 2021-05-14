@@ -1,6 +1,6 @@
 BUILD_DIR ?= _build
 
-.PHONY: ci format update release debug test coverage clean
+# TODO(Drogon): Document makefile
 
 define run_build
 	@# env $1
@@ -13,20 +13,22 @@ build:
 	@cmake -B $(BUILD_DIR) -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release .
 	$(call run_build, LINTERS=ALL)
 
+.PHONY: build_offlint
 build_offlint:
 	$(call run_build, LINT=OFF)
 
-ci: update lint test
 
-
+.PHONY: ci
 ci: update lint test
 
 .PHONY: lint
 lint: cpplint
 
+.PHONY: cpplint
 cpplint:
 	git ls-files include src | egrep '.*\.(h|cc)' | xargs cpplint
 
+.PHONY: spell
 spell:
 	@#find . -type f -not -path "./vendor/*" -print0 | xargs -0 misspell
 	find . -type f -not -path "./_build/*" -print0 -not -path "tags" | xargs -0 misspell
@@ -34,22 +36,28 @@ spell:
 # check-style:
 # git ls-files include src | egrep '.*\.(h|cc)' | xargs python3 dev-tools/check-style.py
 
+.PHONY: format
 format:
 	git ls-files | egrep '.*\.(h|cc)' | xargs clang-format -style=file -i
 
+.PHONY: update
 update:
 	blade build --update-deps -p debug --bundle debug
 
+.PHONY: release
 release:
 	blade build --update-deps -p release
 
+.PHONY: debug
 debug:
 	blade build -p debug --bundle debug
 
+.PHONY: test
 # dep build, ignore it for build dummy output
-test:
+test: build
 	@ctest --test-dir $(BUILD_DIR)
 
+.PHONY: devtools
 # install devtools
 devtools:
 	@dev-tools/install.sh
@@ -83,19 +91,25 @@ devtools:
 # doc: doxygen
 # pass to ninja
 
+.PHONY: ctags
 ctags:
 	@ctags -R .
 
+.PHONY: gtags
+# TODO(Drogon): first run by gtags -c
 gtags:
 	@global -u
 
+.PHONY: todo
 todo:
 	@rg TODO
 
+.PHONY: coverage
 coverage: clean
 	env -u DISTCC_HOSTS DISABLE_DISTCCD=1 COVERAGE=1 blade test -p debug --bundle debug
 	find build64_debug/ ../build64_debug/ -name '*.gcda' | xargs gcov -m -n -r
 
+.PHONY: clean
 clean:
 	@cmake --build $(BUILD_DIR) --target clean
 	# blade clean . -p debug || blade clean || echo "done"
