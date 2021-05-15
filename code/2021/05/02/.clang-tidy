@@ -8,8 +8,10 @@ Checks: >
   -hicpp-no-array-decay,
   -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
   -cppcoreguidelines-pro-bounds-pointer-arithmetic,
+  -fuchsia-default-arguments-calls,
   -fuchsia-default-arguments-declarations,
   -modernize-use-trailing-return-type,
+  -misc-non-private-member-variables-in-classes,
   -altera-struct-pack-align
 WarningsAsErrors: ''
 HeaderFilterRegex: ''

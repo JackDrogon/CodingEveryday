@@ -6,3 +6,5 @@ then
     echo "install cpplint"
     pip3 install cpplint
 fi
+
+# check cppcheck clang-tidy
