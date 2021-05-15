@@ -1,6 +1,7 @@
 BUILD_DIR ?= _build
 
 # TODO(Drogon): Document makefile
+# TODO(Drogon): Think add rebuild to not call gen on every build
 
 define run_build
 	@# env $1
@@ -8,21 +9,23 @@ define run_build
 endef
 
 .PHONY: build
-build:
-	@# -DCMAKE_LINK_WHAT_YOU_USE=TRUE; OSX ld: unknown option: --no-as-needed
-	@cmake -B $(BUILD_DIR) -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release .
+build: gen
 	$(call run_build, LINTERS=ALL)
 
 .PHONY: build_offlint
-build_offlint:
+build_offlint: gen
 	$(call run_build, LINT=OFF)
 
+.PHONY: gen
+gen:
+	@# -DCMAKE_LINK_WHAT_YOU_USE=TRUE; OSX ld: unknown option: --no-as-needed
+	@cmake -B $(BUILD_DIR) -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release .
 
 .PHONY: ci
 ci: update lint test
 
 .PHONY: lint
-lint: cpplint
+lint: cpplint spell
 
 .PHONY: cpplint
 cpplint:
@@ -45,8 +48,7 @@ update:
 	blade build --update-deps -p debug --bundle debug
 
 .PHONY: release
-release:
-	blade build --update-deps -p release
+release: build_offlint
 
 .PHONY: debug
 debug:
@@ -112,5 +114,4 @@ coverage: clean
 .PHONY: clean
 clean:
 	@cmake --build $(BUILD_DIR) --target clean
-	# blade clean . -p debug || blade clean || echo "done"
 	# find build64_debug/ ../build64_debug/ -name '*.gcda' | xargs rm -f
