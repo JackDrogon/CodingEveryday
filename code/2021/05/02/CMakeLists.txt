@@ -17,12 +17,6 @@ set(CPM_DOWNLOAD_VERSION 0.32.0)
 include(cmake/cpm-download.cmake)
 # }
 
-# Cpp compiler {
-set(CMAKE_CXX_STANDARD 20)
-# TODO(Drogon): check gcc clang compiler setting
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weverything -Wno-c++98-compat -Wno-poison-system-directories")
-# }
-
 enable_testing()
 
 add_subdirectory(src)
