@@ -1,3 +1,5 @@
+# TODO(Drogon): all task not running in parallelism
+# TODO(Drogon): VERBOSE
 BUILD_DIR ?= _build
 
 # TODO(Drogon): Document makefile
@@ -19,7 +21,19 @@ build_offlint: gen
 .PHONY: gen
 gen:
 	@# -DCMAKE_LINK_WHAT_YOU_USE=TRUE; OSX ld: unknown option: --no-as-needed
-	@cmake -B $(BUILD_DIR) -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release .
+	@cmake -B $(BUILD_DIR) -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_LINK_WHAT_YOU_USE=TRUE -DCMAKE_BUILD_TYPE=Release .
+
+# rebuild cache not rebuild CXX=g++ like
+.PHONY: rebuild_cache
+rebuild_cache:
+	@cmake --build $(BUILD_DIR) --target rebuild_cache
+
+.PHONY: rebuild
+rebuild: rebuild_cache build
+
+.PHONY: run
+run: build_offlint
+	# run program check cmake run
 
 .PHONY: ci
 ci: update lint test
@@ -114,4 +128,4 @@ coverage: clean
 .PHONY: clean
 clean:
 	@cmake --build $(BUILD_DIR) --target clean
-	# find build64_debug/ ../build64_debug/ -name '*.gcda' | xargs rm -f
+	@find _build -name '*.gcda' | xargs rm -f
