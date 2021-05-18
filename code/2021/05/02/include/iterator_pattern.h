@@ -8,28 +8,28 @@
 
 template <typename Object> class Iterator {
     public:
-	Iterator() = default;
-	virtual ~Iterator() = default;
+	Iterator() noexcept = default;
+	virtual ~Iterator() noexcept = default;
 
-	virtual bool HasNext() const = 0;
-	virtual Object &Next() = 0;
+	[[nodiscard]] virtual bool HasNext() const noexcept = 0;
+	[[nodiscard]] virtual Object &Next() noexcept = 0;
 };
 
 template <typename Object> class Aggregate {
     public:
-	Aggregate() = default;
-	virtual ~Aggregate() = default;
+	Aggregate() noexcept = default;
+	virtual ~Aggregate() noexcept = default;
 
-	virtual std::unique_ptr<Iterator<Object>> NewIterator() = 0;
+	[[nodiscard]] virtual std::unique_ptr<Iterator<Object>> NewIterator() noexcept = 0;
 };
 
 class Book {
     public:
-	explicit Book(std::string name) : name_(std::move(name))
+	explicit Book(std::string name) noexcept : name_(std::move(name))
 	{
 	}
 
-	std::string Name() const
+	[[nodiscard]] std::string Name() const noexcept
 	{
 		return name_;
 	}
@@ -40,19 +40,19 @@ class Book {
 
 class BookShelf final : public Aggregate<Book> {
     public:
-	BookShelf() = default;
+	BookShelf() noexcept = default;
 
-	auto GetSize() const
+	[[nodiscard]] auto GetSize() const noexcept
 	{
 		return books_.size();
 	}
 
-	[[nodiscard]] auto GetBookAt(size_t index) -> Book &
+	[[nodiscard]] auto GetBookAt(size_t index) noexcept -> Book &
 	{
 		return books_[index];
 	}
 
-	[[nodiscard]] auto GetBookAt(size_t index) const -> const Book &
+	[[nodiscard]] auto GetBookAt(size_t index) const noexcept -> const Book &
 	{
 		return books_[index];
 	}
@@ -62,7 +62,7 @@ class BookShelf final : public Aggregate<Book> {
 		books_.emplace_back(std::move(name));
 	}
 
-	std::unique_ptr<Iterator<Book>> NewIterator() override;
+	[[nodiscard]] std::unique_ptr<Iterator<Book>> NewIterator() noexcept override;
 
     private:
 	std::vector<Book> books_;
@@ -70,13 +70,13 @@ class BookShelf final : public Aggregate<Book> {
 
 class BookShelfIterator final : public Iterator<Book> {
     public:
-	BookShelfIterator(BookShelf *bookself)
+	BookShelfIterator(BookShelf *bookself) noexcept
 		: current_index_(0), bookself_(bookself)
 	{
 	}
 
-	bool HasNext() const override;
-	Book &Next() override;
+	bool HasNext() const noexcept override;
+	Book &Next() noexcept override;
 
     private:
 	size_t current_index_;
