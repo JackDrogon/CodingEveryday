@@ -11,6 +11,7 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 set(LINTER_WRAPPER "${CMAKE_SOURCE_DIR}/dev-tools/linter_wrapper")
 set(CMAKE_CXX_CPPCHECK "${LINTER_WRAPPER}" "cppcheck")
 set(CMAKE_CXX_CPPLINT "${LINTER_WRAPPER}" "cpplint")
+set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE "${LINTER_WRAPPER}" "include-what-you-use")
 
 set(CMAKE_CXX_CLANG_TIDY "${LINTER_WRAPPER}" "clang-tidy")
 set(CLANG_TIDY_CONF_FILE "${CMAKE_SOURCE_DIR}/.clang-tidy")

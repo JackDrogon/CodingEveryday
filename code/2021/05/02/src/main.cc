@@ -1,7 +1,10 @@
-#include <iostream>
+#include <iostream>            // for endl, basic_ostream, cout, ostream, std
+#include <memory>              // for allocator, unique_ptr
+#include <string>              // for operator<<
+
 using namespace std;
 
-#include "iterator_pattern.h"
+#include "iterator_pattern.h"  // for BookShelf, Iterator, Book
 
 int main()
 {
