@@ -21,7 +21,7 @@ build_offlint: gen
 .PHONY: gen
 gen:
 	@# -DCMAKE_LINK_WHAT_YOU_USE=TRUE; OSX ld: unknown option: --no-as-needed
-	@cmake -B $(BUILD_DIR) -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_LINK_WHAT_YOU_USE=TRUE -DCMAKE_BUILD_TYPE=Release .
+	@cmake -B $(BUILD_DIR) -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release .
 
 # rebuild cache not rebuild CXX=g++ like
 .PHONY: rebuild_cache

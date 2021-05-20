@@ -2,8 +2,11 @@ find_package(Catch2 2 REQUIRED)
 
 # Cpp compiler {
 set(CMAKE_CXX_STANDARD 20)
-# TODO(Drogon): check gcc clang compiler setting
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weverything -Wno-c++98-compat -Wno-poison-system-directories")
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")  # MATCHES so we get both Clang and AppleClang
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weverything -Werror -Wno-c++98-compat -Wno-poison-system-directories")
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror")
+endif()
 include_directories(${PROJECT_SOURCE_DIR}/include)
 # }
 
@@ -12,6 +15,9 @@ set(LINTER_WRAPPER "${CMAKE_SOURCE_DIR}/dev-tools/linter_wrapper")
 set(CMAKE_CXX_CPPCHECK "${LINTER_WRAPPER}" "cppcheck")
 set(CMAKE_CXX_CPPLINT "${LINTER_WRAPPER}" "cpplint")
 set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE "${LINTER_WRAPPER}" "include-what-you-use")
+if(NOT CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+	set(CMAKE_LINK_WHAT_YOU_USE TRUE)
+endif()
 
 set(CMAKE_CXX_CLANG_TIDY "${LINTER_WRAPPER}" "clang-tidy")
 set(CLANG_TIDY_CONF_FILE "${CMAKE_SOURCE_DIR}/.clang-tidy")
