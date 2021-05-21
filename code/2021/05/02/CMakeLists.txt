@@ -16,17 +16,28 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")  # MATCHES so we get both Clang and Ap
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 	set(CXX_FLAGS ${CMAKE_CXX_FLAGS} -Wall -Werror)
 endif()
+
+# buildID setting
+# Create BuildID when using lld. For other linkers it is created by default.
+if (LINKER_NAME MATCHES "lld$")
+	# SHA1 is not cryptographically secure but it is the best what lld is offering.
+	set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--build-id=sha1")
+endif()
 # }
 
 # Linter {
 set(LINTER_WRAPPER "${CMAKE_SOURCE_DIR}/dev-tools/linter_wrapper")
+# cppcheck setting
 set(CMAKE_CXX_CPPCHECK "${LINTER_WRAPPER}" "cppcheck")
+# cpplint setting
 set(CMAKE_CXX_CPPLINT "${LINTER_WRAPPER}" "cpplint")
+# iwyu setting
 set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE "${LINTER_WRAPPER}" "include-what-you-use")
-if(NOT CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+# if(NOT CMAKE_SYSTEM_NAME STREQUAL "Darwin")
 	set(CMAKE_LINK_WHAT_YOU_USE TRUE)
-endif()
+# endif()
 
+# clang-tidy setting
 set(CMAKE_CXX_CLANG_TIDY "${LINTER_WRAPPER}" "clang-tidy")
 set(CLANG_TIDY_CONF_FILE "${CMAKE_SOURCE_DIR}/.clang-tidy")
 file(SHA1 ${CLANG_TIDY_CONF_FILE} clang_tidy_sha1)
