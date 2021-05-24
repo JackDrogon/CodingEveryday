@@ -1,10 +1,9 @@
-#include <functional>
-#include <iostream>
-#include <memory>
-#include <tuple>
-#include <type_traits>
-#include <utility>
-using namespace std;
+#include <functional>  // for invoke
+#include <iostream>    // for operator<<, endl, basic_ostream, cout, ostream
+#include <memory>      // for make_unique, unique_ptr
+#include <tuple>       // for get, tuple
+#include <type_traits> // for decay, forward, move, remove_reference_t
+#include <utility>     // for index_sequence, make_index_sequence
 
 
 namespace
@@ -21,7 +20,7 @@ void *call(routine caller, void *arg)
 
 template <class Fp, class... Args, size_t... Indices>
 inline void execute(std::tuple<Fp, Args...> &closure,
-		    std::index_sequence<Indices...>)
+		    std::index_sequence<Indices...> /* index */)
 {
 	std::invoke(std::move(std::get<0>(closure)),
 		    std::move(std::get<Indices + 1>(closure))...);
@@ -39,15 +38,15 @@ template <class Fp> void *call_proxy(void *vp)
 	return nullptr;
 }
 
-template <class Type> inline typename decay<Type>::type decay_copy(Type &&t)
+template <class Type> inline typename std::decay_t<Type> decay_copy(Type &&t)
 {
 	return std::forward<Type>(t);
 }
 
 template <class Function, class... Args> void run(Function &&f, Args &&...args)
 {
-	using Gp = std::tuple<typename decay<Function>::type,
-			      typename decay<Args>::type...>;
+	using Gp = std::tuple<typename std::decay_t<Function>,
+			      typename std::decay_t<Args>...>;
 	auto p = std::make_unique<Gp>(decay_copy(std::forward<Function>(f)),
 				      decay_copy(std::forward<Args>(args))...);
 	call(&call_proxy<Gp>, p.get());
@@ -58,5 +57,7 @@ template <class Function, class... Args> void run(Function &&f, Args &&...args)
 
 int main()
 {
-	run([] { cout << "Hello, World!" << endl; });
+	run([] { std::cout << "Hello, World!" << std::endl; });
+
+	return 0;
 }
